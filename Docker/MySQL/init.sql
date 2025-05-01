@@ -2,33 +2,39 @@
 DROP DAtABASE chatapp;
 DROP USER 'testuser';
 
-CREATE USER 'testuser' IDENTIFIED BY 'testuser';
-CREATE DATABASE chatapp;
-USE chatapp
-GRANT ALL PRICILEGES ON chatapp.* TO 'testuser';
+CREATE DATABASE IF NOT EXISTS chatapp;
+CREATE USER IF NOT EXISTS 'testuser'@'%' IDENTIFIED BY 'testuser';
+GRANT ALL PRIVILEGES ON chatapp.* TO 'testuser'@'%';
+FLUSH PRIVILEGES;
+USE chatapp;
+
+-- CREATE USER 'testuser' IDENTIFIED BY 'testuser';
+-- CREATE DATABASE chatapp;
+-- GRANT ALL PRIVILEGES ON chatapp.* TO 'testuser';
+-- USE chatapp;
 
 CREATE TABLE teams (
-    id INT AUTO_INCReMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     teamname VARCHAR(50) UNIQUE NOT NULL,
     url_token VARCHAR(50) UNIQUE NOT NULL
 );
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    user_name VARCHAR(50) UNIQUE NOT NULL,
+    username VARCHAR(50) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     team_id INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    FOREIGN KEY (team_id) PREFERENCES teams(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (team_id) REFERENCES teams(id)
 );
 
 CREATE TABLE channels (
     id INT AUTO_INCREMENT PRIMARY KEY,
     channel_name VARCHAR(100) NOT NULL,
-    channel_description TEXT, NULL,
+    channel_description TEXT NOT NULL,
     created_by INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (created_by) REFERENCES users(id),
+    FOREIGN KEY (created_by) REFERENCES users(id)
 );
 
 CREATE TABLE channel_members (
@@ -58,7 +64,7 @@ CREATE TABLE worktime (
     end_time_minute INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 INSERT INTO teams (teamname, url_token) VALUES
