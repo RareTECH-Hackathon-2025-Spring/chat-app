@@ -32,8 +32,10 @@ CREATE TABLE channels (
     id INT AUTO_INCREMENT PRIMARY KEY,
     channel_name VARCHAR(100) NOT NULL,
     channel_description TEXT NOT NULL,
+    team_id INT NOT NULL,
     created_by INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (team_id) REFERENCES teams(id),
     FOREIGN KEY (created_by) REFERENCES users(id)
 );
 
@@ -50,18 +52,19 @@ CREATE TABLE message (
     content TEXT NOT NULL,
     user_id INT NOT NULL,
     channel_id INT NOT NULL,
+    team_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (channel_id) REFERENCES channels(id)
+    FOREIGN KEY (team_id) REFERENCES teams(id)
 );
 
 CREATE TABLE worktime (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    start_time_hour INT NOT NULL,
-    start_time_minute INT NOT NULL,
-    end_time_hour INT NOT NULL,
-    end_time_minute INT NOT NULL,
+    team_id INT NOT NULL,
+    start_time INT NOT NULL,
+    end_time INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)
