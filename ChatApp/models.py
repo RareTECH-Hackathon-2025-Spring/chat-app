@@ -160,14 +160,14 @@ class Worktime:
 
     # チーム単位の取得
     @classmethod
-    def get_by_user_id(cls, team_id):
+    def get_by_team_id(cls, team_id):
         try:
             with db_pool.get.conn() as conn:
                 with conn.cursor() as cur:
                     sql = "SELECT * FROM worktime WHERE user_id = %s;"
                     cur.execute(sql, (user_id,))
-                    worktime = cur.fetchone()
-                    return worktime
+                    worktimes = cur.fetchone()
+                    return worktimes
         except pymysql.MySQLError as e:
             print(f'Error creating worktime: {e}')
             abort(500)
