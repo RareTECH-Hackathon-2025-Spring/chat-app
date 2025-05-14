@@ -1,0 +1,22 @@
+{% extends 'base.html'%}
+{% block title %}
+<title>Sign Up</title>
+{% endblock %}
+{% block content %}
+
+<form method="post" action="/auth/signup">
+    <label for="signup_username_input">Username</label>
+    <input type="text" id="signup_username_input" name="username" required>
+    <label for="signup_password_input">Password</label>
+    <input type="text" id="signup_password_input" name="password" required>
+    <label for="signup_password_confirmation_input">Password Confirmation</label>
+    <input type="text" id="signup_password_confirmation_input" name="passwordConfirmation" required>
+    <label for="signup_password_confirmation_input">Team</label>
+    <select name="team_id" required>
+        {% for team in teams %}
+            <option value="{{ team.id }}">{{ team.teamname }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Sign Up</button>
+</form>
+{% endblock %}
