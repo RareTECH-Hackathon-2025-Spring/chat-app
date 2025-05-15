@@ -90,7 +90,7 @@ input.text-input:active {
     box-shadow: 0 0 5px 1px rgba(234,100,217,1);
   }
 
-select#pet-select {
+select#team-select2 {
     width: 416px;
     height: 56px;
     padding: 18px 20px;
@@ -101,17 +101,17 @@ select#pet-select {
     outline: 0;
 }
 
-select#pet-select:hover {
+select#team-select2:hover {
     background-color: #ffff;
     box-shadow: 0 0 5px 4px rgba(234,100,217,0.1);
 }
 
-select#pet-select:focus {
+select#team-select2:focus {
     outline: none;
     border: solid 3px rgba(234,100,217,0.1);
 }
 
-select#pet-select:active {
+select#pet-select2:active {
     box-shadow: 0 0 5px 1px rgba(234,100,217,1);
   }
 
