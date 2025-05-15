@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="work_time_log.css">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html'%}
+{% block title %}
+<title>Sign Up</title>
+{% endblock %}
+{% block content %}
     <div id="main-container">
         <section class="content">
             <main>
@@ -17,13 +13,7 @@
                             <div class="form-fields">
                                 <fieldset>
                                     <label for="team_id">Username</label>
-                                    <select id="pet-select" name="team_id">
-                                        <option value="">Username Selection</option>
-                                        <option value="1">Keisuke</option>
-                                        <option value="2">Tomo</option>
-                                        <option value="3">Yolu</option>
-                                        <option value="4">Hiro</option>
-                                        <option value="5">Kobayashi</option>
+                                    <select id="team-select2" name="team_id">
                                     </select>
                                 </fieldset>
                                 <fieldset>
@@ -36,7 +26,7 @@
                                     min="00:00" max="23:59">
                                  </fieldset>
                             </div>
-                            <button class="btn2" type="submit" value="work_time_log">Send</button>
+                            <button class="btn2" type="submit" name="tiem_send_btn" value="work_time_log">Send</button>
 
                             <!-- 出退勤時間一覧表示 -->
                             <table id="timelist">
@@ -71,12 +61,11 @@
                                     <td></td>
                                 </tr>
                             </table>
-                            <button class="btn" type="button" value="work_time_log">Channels</button>
+                            <button class="btn" type="submit" name="Channels_btn" value="work_time_log">Channels</button>
                         </form>
                     </div>                   
                 </div>
             </main>
         </section>
     </div>
-</body>
-</html>
+{ endblock }
