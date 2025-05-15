@@ -1,5 +1,5 @@
 -- （開発時のみの実装）すでに存在する場合は削除
-DROP DAtABASE chatapp;
+DROP DATABASE chatapp;
 DROP USER 'testuser';
 
 CREATE DATABASE IF NOT EXISTS chatapp;
@@ -55,7 +55,7 @@ CREATE TABLE message (
     team_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (channel_id) REFERENCES channels(id)
+    FOREIGN KEY (channel_id) REFERENCES channels(id),
     FOREIGN KEY (team_id) REFERENCES teams(id)
 );
 
@@ -67,7 +67,8 @@ CREATE TABLE worktime (
     end_time INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (team_id) REFERENCES teams(id)
 );
 
 INSERT INTO teams (teamname, url_token) VALUES
