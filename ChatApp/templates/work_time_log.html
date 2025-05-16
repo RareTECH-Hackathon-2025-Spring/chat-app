@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="work_time_log.css">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html'%}
+{% block title %}
+<title>Work Time Log</title>
+{% endblock %}
+{% block content %}
     <div id="main-container">
         <section class="content">
             <main>
@@ -72,5 +68,4 @@
             </main>
         </section>
     </div>
-</body>
-</html>
+{% endblock %}

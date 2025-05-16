@@ -6,7 +6,7 @@ worktime_bp = Blueprint('worktime', __name__, url_prefix='/worktime')
 #@app.route ではなく、 @worktime_bp.route を使用
 
 # 勤怠の入力
-@worktime_bp.route('/<int:team_id>/input', methods=['POST'])
+@worktime_bp.route('/<int:team_id>/<int:user_id>/input', methods=['POST'])
 def worktime_input(team_id):
     uid = session.get('user_id')
     if uid is None:
@@ -33,6 +33,10 @@ def worktime_view(team_id):
     uid = session.get('user_id')
     if uid is None:
         return redirect(url_for('auth.login_page'))
+    
+    worktimes = Worktime.get_by_team_id(team_id)
+
+    return render_template('worktime_view.html', worktimes = worktimes, team_id = team_id)
     
     
     
