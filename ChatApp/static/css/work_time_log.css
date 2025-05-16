@@ -111,7 +111,7 @@ select#team-select2:focus {
     border: solid 3px rgba(234,100,217,0.1);
 }
 
-select#pet-select:active {
+select#team-select2:active {
     box-shadow: 0 0 5px 1px rgba(234,100,217,1);
   }
 
