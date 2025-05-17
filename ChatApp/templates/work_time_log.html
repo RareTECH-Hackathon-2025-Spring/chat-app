@@ -14,19 +14,24 @@
                                 <fieldset>
                                     <label for="team_id">Username</label>
                                     <select id="team-select2" name="team_id">
+                                    <option value=""disabled selected>Team Selection</option>
+                                    {% for user in users %}
+                                    <option value="{{ user.id }}">{{ user.username}}</option>
+                                    {% endfor %}
                                     </select>
                                 </fieldset>
                                 <fieldset>
                                     <label for="user_clock_in">Clock in</label>
                                     <input type="time" name="user_clock_in" class="text-input timelog"
                                     min="00:00" max="23:59">
-                                
+                                </fieldset>
+                                <fieldset>
                                     <label for="user_clock_out">Clock out</label>
                                     <input type="time" name="user_clock_out" class="text-input timelog"
                                     min="00:00" max="23:59">
                                  </fieldset>
                             </div>
-                            <button class="btn2" type="submit" name="tiem_send_btn" value="work_time_log">Send</button>
+                            <button class="btn2" type="submit" name="time_send_btn" value="work_time_log">Send</button>
 
                             <!-- 出退勤時間一覧表示 -->
                             <table id="timelist">
@@ -61,7 +66,7 @@
                                     <td></td>
                                 </tr>
                             </table>
-                            <button class="btn" type="submit" name="Channels_btn" value="work_time_log">Channels</button>
+                            <button class="btn" type="button" name="Channels_btn" value="channels">Channels</button>
                         </form>
                     </div>                   
                 </div>
