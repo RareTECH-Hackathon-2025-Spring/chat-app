@@ -185,3 +185,50 @@ class Worktime:
         except pymysql.MySQLError as e:
             print(f'Error creating worktime: {e}')
             abort(500)
+
+# Message Class
+class Message:
+    # メッセージ一覧取得
+    @classmethod
+    def get_all(cls, cid):
+        try:
+            with db_pool.get.conn() as conn:
+                with conn.cursor() as cur:
+                    sql = "SELECT * FROM channels WHERE channel_id = %s;"
+                    cur.execute(sql, (cid,))
+                    channels = cur.fetchall()
+                    return channels
+        except pymysql.Error as e:
+            print(f'エラーが発生しています：{e}')
+            abort(500)
+        finally:
+            db_pool.release(conn)
+    
+    #メッセージ投稿
+    @classmethod
+    def create(cls, uid, cid, message):
+       try:
+           with db_pool.get.conn() as conn:
+                with conn.cursor() as cur:
+                    sql = "INSERT INTO message(user_id, channel_id, content) VALUES(%s, %s, %s)"
+                    cur.execute(sql, (uid, cid, message,))
+                    conn.commit()
+       except pymysql.Error as e:
+           print(f'エラーが発生しています：{e}')
+           abort(500)
+       finally:
+           db_pool.release(conn)
+
+    @classmethod
+    def delete(cls, message_id):
+       try:
+           with db_pool.get.conn() as conn:
+                with conn.cursor() as cur:
+                    sql = "DELETE FROM message WHERE id=%s;"
+                    cur.execute(sql, (message_id,))
+                    conn.commit()
+       except pymysql.Error as e:
+           print(f'エラーが発生しています：{e}')
+           abort(500)
+       finally:
+           db_pool.release(conn)

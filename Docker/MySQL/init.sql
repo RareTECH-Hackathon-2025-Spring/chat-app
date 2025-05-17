@@ -55,7 +55,7 @@ CREATE TABLE message (
     team_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (channel_id) REFERENCES channels(id)
+    FOREIGN KEY (channel_id) REFERENCES channels(id),
     FOREIGN KEY (team_id) REFERENCES teams(id)
 );
 
