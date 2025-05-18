@@ -6,37 +6,34 @@ worktime_bp = Blueprint('worktime', __name__, url_prefix='/worktime')
 #@app.route ではなく、 @worktime_bp.route を使用
 
 # 勤怠の入力
-@worktime_bp.route('/<int:team_id>/<int:user_id>/input', methods=['POST'])
+@worktime_bp.route('/<int:team_id>', methods=['POST'])
 def worktime_input(team_id):
     uid = session.get('user_id')
     if uid is None:
         return redirect(url_for('auth.login_page'))
-    
-    start_hour = request.form.get('start_hour')
-    start_minute = request.form.get('start_minute')
-    end_hour = request.form.get('end_hout')
-    end_minute = request.form.get('end_minute')
 
+    uid = request.form.get('user_id')    
+    start_time = request.form.get('start_time')
+    end_time = request.form.get('end_time')
 
     worktime = Worktime.find_by_user_id(uid)
 
     if worktime is None:
-        Worktime.create(uid, start_hour, start_minute, end_hour, end_minute)
-        return redirect(url_for('channels.channels_view', team_id=team_id))
+        Worktime.create(uid, start_time, end_time)
     else:
-        Worktime.update(uid, start_hour, start_minute, end_hour, end_minute)
-        return redirect(url_for('channels.channels_view', team_id=team_id))
+        Worktime.update(uid, start_time, end_time)
 
 # 勤怠の表示
-@worktime_bp.route('/<int:team_id>/view', methods=['GET'])
+@worktime_bp.route('/<int:team_id>', methods=['GET'])
 def worktime_view(team_id):
     uid = session.get('user_id')
     if uid is None:
         return redirect(url_for('auth.login_page'))
     
     worktimes = Worktime.get_by_team_id(team_id)
+    team_members = User.get_team_members(team_id)
 
-    return render_template('worktime_view.html', worktimes = worktimes, team_id = team_id)
+    return render_template('work_time_log.html', worktimes = worktimes, team_id = team_id, team_members = team_members)
     
     
     
