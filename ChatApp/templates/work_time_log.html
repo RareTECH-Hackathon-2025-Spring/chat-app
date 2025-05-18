@@ -13,20 +13,25 @@
                             <div class="form-fields">
                                 <fieldset>
                                     <label for="team_id">Username</label>
-                                    <select id="team-select2" name="team_id">
+                                    <select id="team-select2" name="user_id">
+                                    <option value=""disabled selected>User Selection</option>
+                                    {% for team_member in team_members %}
+                                    <option value="{{ team_member.id }}">{{ team_member.username}}</option>
+                                    {% endfor %}
                                     </select>
                                 </fieldset>
                                 <fieldset>
-                                    <label for="user_clock_in">Clock in</label>
-                                    <input type="time" name="user_clock_in" class="text-input timelog"
+                                    <label for="start_time">Start Time</label>
+                                    <input type="time" name="start_time" class="text-input timelog"
                                     min="00:00" max="23:59">
-                                
-                                    <label for="user_clock_out">Clock out</label>
-                                    <input type="time" name="user_clock_out" class="text-input timelog"
+                                </fieldset>
+                                <fieldset>
+                                    <label for="end_time">End_time</label>
+                                    <input type="time" name="end_time" class="text-input timelog"
                                     min="00:00" max="23:59">
                                  </fieldset>
                             </div>
-                            <button class="btn2" type="submit" name="tiem_send_btn" value="work_time_log">Send</button>
+                            <button class="btn2" type="submit" name="time_send_btn" value="work_time_log">Send</button>
 
                             <!-- 出退勤時間一覧表示 -->
                             <table id="timelist">
@@ -36,32 +41,14 @@
                                     <th>Clock out</th>
                                 </tr>
                                 <tr>
-                                    <th>Keisuke</th>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>Tomo</th>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>Yolu</th>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>Hiro</th>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>Kobayashi</th>
-                                    <td></td>
-                                    <td></td>
+                                    {% for worktime in worktimes %}
+                                    <th>{{ worktime.username }}</th>
+                                    <th>{{ worktime.start_time }}</th>
+                                    <th>{{ worktime.end_time }}</th>
+                                    {% endfor %}
                                 </tr>
                             </table>
-                            <button class="btn" type="submit" name="Channels_btn" value="work_time_log">Channels</button>
+                            <button class="btn" type="button" name="Channels_btn" value="channels">Channels</button>
                         </form>
                     </div>                   
                 </div>

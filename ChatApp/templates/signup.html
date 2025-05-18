@@ -29,11 +29,11 @@
                                     <option value="">Team Selection</option>
                                     {% for team in teams %}
                                         <option value="{{ team.id }}">{{ team.teamname }}</option>
-                                    {% endfor%}
+                                    {% endfor %}
                                     </select>
                                 </fieldset>
                             </div>
-                            <button class="btn" type="submit" value="create_account">Create Account</button> 
+                            <button class="btn" type="submit">Create Account</button> 
                             <p class="signup">Already have an account?
                                 <a class="info" href="{{ url_for('auth.login_page') }}">Sign in</a>
                             </p>

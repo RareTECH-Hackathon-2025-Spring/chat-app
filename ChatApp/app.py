@@ -20,6 +20,5 @@ app.register_blueprint(worktime_bp)
 def home():
     return "Hello, Flask is working!"
 
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
