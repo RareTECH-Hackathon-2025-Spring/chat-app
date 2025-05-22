@@ -1,16 +1,8 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/channels.css">
-    <title>Channels</title>
-</head>
-<body>
- <!-- ↑↑↑↑　jinja2構文に変更する -->
+{% extends "base.html" %}
+{% block title %}Channels{% endblock %}
 
-
+{% block content %}
     <div id="wrapper">
         <div class="invitation">
             <header id="header">
@@ -31,5 +23,9 @@
                  <button class="btn" type="button" name="worktime_btn" value="worktime">Work Time Log</button>
             </form>
         </div>
-        <script src="channels.js"></script>
-</body>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+  <script src="{{ url_for('static', filename='js/channels.js') }}"></script>
+{% endblock %}
