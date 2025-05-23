@@ -1,0 +1,51 @@
+{% extends 'base.html'%}
+{% block title %}
+<title>Sign Up</title>
+{% endblock %}
+{% block content %}
+    <div id="main-container">
+        <section class="content">
+            <main>
+                <div class="auth-content">
+                    <h2>Sign up to Team Account</h2>
+                    <div class="auth-form sign-up-form">
+                        <form method="post">
+                            <div class="form-fields">
+                                <fieldset>
+                                    <label for="username">Username</label>
+                                    <input type="text" name="username" id="signup" class="text-input" placeholder="Username">
+                                </fieldset>
+                                <fieldset>
+                                    <label for="password">Password</label>
+                                    <input type="password" name="password" id="password1" class="text-input" placeholder="Password 6-32 characters">
+                                </fieldset>
+                                <fieldset>
+                                    <label for="password">Confirm Password</label>
+                                    <input type="password" name="passwordConfirmation" id="password2"  class="text-input">
+                                </fieldset>
+                                <fieldset>
+                                    <label for="team-select">Team Selection</label>
+                                    <select id="team-select" name="team_id">
+                                    <option value="">Team Selection</option>
+                                    {% for team in teams %}
+<<<<<<< Updated upstream
+                                        <option value="{{ team.id }}">{{ team.name }}</option>
+                                    {% endfor%}
+=======
+                                        <option value="{{ team.id }}">{{ team.teamname  }}</option>
+                                    {% endfor %}
+>>>>>>> Stashed changes
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <button class="btn" type="submit">Create Account</button> 
+                            <p class="signup">Already have an account?
+                                <a class="info" href="{{ url_for('auth.login_page') }}">Sign in</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </section>
+      </div>
+{% endblock %}

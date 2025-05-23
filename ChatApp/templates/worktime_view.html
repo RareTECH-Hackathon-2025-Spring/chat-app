@@ -1,0 +1,15 @@
+{% extends 'base.html'%}
+{% block title %}
+<title>Work times</title>
+{% endblock %}
+{% block content %}
+
+<h1> Work times</h1>
+{% for worktime in worktime}
+    <div>
+        <h2>User id: {{ worktime.user_id}}</h2>
+        <p>Updated at: {{ worktime.updated_at }}</p>
+        <p>Start time: {{ worktime.start_time }}</p>
+        <p>End time: {{ worktime.end_time }}</p>
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html'%}
+{% block title %}
+<title>Sign in</title>
+{% endblock %}
+{% block content %}
+<div id="main-container">
+    <section class="content">
+        <main>
+            <div class="auth-content">
+                <h2>Sign in to Team Account</h2>
+                <div class="auth-form sign-in-form">
+                    <form method="post">
+                        <div class="form-fields">
+                            <fieldset>
+                                <label for="username">Username</label>
+                                <input type="text" name="username" id="login" class="text-input" placeholder="Username">
+                            </fieldset>
+                            <fieldset>
+                                <label for="password">Password</label>
+                                <input type="password"  name="password" id="password" class="text-input">
+                            </fieldset>
+                        </div>
+                      
+                        <button class="btn" type="submit" name="sign_in_btn" value="sign_in">Sign in</button>
+                        <p class="sign">Don't have an account?
+                          
+                        <a class="info" href="{{ url_for('auth.signup_page') }}">Sign up</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </section>
+</div>
+{% endblock %}

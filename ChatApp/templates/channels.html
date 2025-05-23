@@ -1,52 +1,40 @@
-{% extends 'base.html' %} {% block title %}
-<title>home</title>
-{% endblock %} {% block body %}
-<div class="main-container">
-  <div class="channel-title">
-    <h1>CHANNELS</h1>
-    <p class="channel-title-text">CHANNELS</p>
-  </div>
-  <div id="channels-list">
-    <div id="pagination-wrapper">
-      <div>
-        <div class="pagination-container">
-          <p id="prev">
-            <
-            <span>PREV</span>
-          </p>
-          <ul class="pagination"></ul>
-          <p id="next">
-            <span>NEXT</span>
-            >
-          </p>
-        </div>
-      </div>
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=menu" />
+    <link rel="stylesheet" href="channels.css">
+    <title>Channels</title>
+</head>
+<body> -->
+{% for channel in channels %}
+<li>{{ Channel }}</li>
+
+    <div class="site-nave">
+        <p>chatapp</p>
     </div>
-    <ul class="channel-box"></ul>
-  </div>
-  <div id="footer">
-    <p id="footer-text">PLAUDERN FROM RARETECH</p>
-  </div>
-  {% include 'modal/create-channel.html' %} {% include
-  'modal/delete-channel.html' %}
-</div>
-{% endblock %} {% block script %}
-<script type="text/javascript">
-  // prettier-ignore
-  const channels = JSON.parse('{{ channels|tojson }}');
-  // prettier-ignore
-  const uid = JSON.parse('{{ uid|tojson }}');
-</script>
-<script
-  src="{{url_for('static',filename='js/channels/create-channel.js')}}"
-  type="module"
-></script>
-<script
-  src="{{url_for('static',filename='js/pagination.js')}}"
-  type="module"
-></script>
-<script
-  src="{{url_for('static',filename='js/channels/delete-channel.js')}}"
-  type="module"
-></script>
-{% endblock %}
+        <div id="main-container2">
+            <div class="channel-title">
+                <h1 id="channel">Channels</h1>
+                <h2 id="channel2">L Team</h2>
+            </div>
+            <div class="section-channel_list">
+                <h3 id="channel3">Channel List</h3>
+                <ul>
+                    <li><a href="chat.html">オフトピックス</a></li>
+                    <li>タウンスクウェア</li>
+                    <li>フロント</li>
+                    <li>バックエンド</li>
+                </ul>
+                <form>
+                    <button class="btn3" type="button" name="channel_name_btn" value="channel_name">Create channel</button>
+                    <!-- <button class="btn3" type="button" name="channel_delete_btn" value="channel_delete">Delet</button>
+                    <button class="btn3" type="button" name="channel_edit_btn" value="channel_edit">Edit</button> -->
+                </form>
+            </div>
+            <form>
+                <button class="btn" type="button" name="work_time_log_btn" value="work_time_log">Work Time Log</button>
+            </form>
+        </div>
+{% endfor %}

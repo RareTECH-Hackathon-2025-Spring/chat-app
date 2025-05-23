@@ -1,0 +1,76 @@
+{% extends 'base.html'%}
+{% block title %}
+<title>Work Time Log</title>
+{% endblock %}
+{% block content %}
+    <div id="main-container">
+        <section class="content">
+            <main>
+                <div class="auth-content">
+                    <h2>Work Time Log</h2>
+                    <div class="auth-form sign-in-form">
+                        <form method="post">
+                            <div class="form-fields">
+                                <fieldset>
+                                    <label for="team_id">Username</label>
+                                    <select id="team-select2" name="team_id">
+                                    <option value=""disabled selected>Team Selection</option>
+                                    {% for user in users %}
+                                    <option value="{{ user.id }}">{{ user.username}}</option>
+                                    {% endfor %}
+                                    </select>
+                                </fieldset>
+                                <fieldset>
+                                    <label for="user_clock_in">Clock in</label>
+                                    <input type="time" name="user_clock_in" class="text-input timelog"
+                                    min="00:00" max="23:59">
+                                </fieldset>
+                                <fieldset>
+                                    <label for="user_clock_out">Clock out</label>
+                                    <input type="time" name="user_clock_out" class="text-input timelog"
+                                    min="00:00" max="23:59">
+                                 </fieldset>
+                            </div>
+                            <button class="btn2" type="submit" name="time_send_btn" value="work_time_log">Send</button>
+
+                            <!-- 出退勤時間一覧表示 -->
+                            <table id="timelist">
+                                <tr id="timelist-style">
+                                    <th>Name</th>
+                                    <th>Clock in</th>
+                                    <th>Clock out</th>
+                                </tr>
+                                <tr>
+                                    <th>Keisuke</th>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>Tomo</th>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>Yolu</th>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>Hiro</th>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>Kobayashi</th>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                            <button class="btn" type="button" name="Channels_btn" value="channels">Channels</button>
+                        </form>
+                    </div>                   
+                </div>
+            </main>
+        </section>
+    </div>
+{% endblock %}
