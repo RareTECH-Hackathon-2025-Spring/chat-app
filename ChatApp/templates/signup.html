@@ -28,8 +28,13 @@
                                     <select id="team-select" name="team_id">
                                     <option value="">Team Selection</option>
                                     {% for team in teams %}
+<<<<<<< Updated upstream
                                         <option value="{{ team.id }}">{{ team.name }}</option>
                                     {% endfor%}
+=======
+                                        <option value="{{ team.id }}">{{ team.teamname  }}</option>
+                                    {% endfor %}
+>>>>>>> Stashed changes
                                     </select>
                                 </fieldset>
                             </div>

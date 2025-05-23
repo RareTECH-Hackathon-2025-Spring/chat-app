@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="chat.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="perosn-selector">
+        <button class="button perdon-selector-button active-person" id="user-selector">user1</button>
+        <button class="button perdon-selector-button" id="user2-selector">user2</button>
+    </div>
+    <!-- user切り替えボタン -->
+
+        <div chat-container>
+            <h2 class="chat-header">chatting now...</h2>
+
+            <div class="chat-messages">
+                <div class="message blue-bg">
+                    <div class="message-sender">user1</div>
+                    <div class="message-text">Hey user2, what't up?</div>
+                    <div class="message-timestamp">10:30 AM</div>
+                </div>
+                <div class="message gray-bg">
+                    <div class="message-sender">user2</div>
+                    <div class="message-text">Hey user1, what't up?</div>
+                    <div class="message-timestamp">10:35 AM</div>
+                </div>
+            </div>
+            <!-- チャット画面 -->
+
+            <form class="chat-input-form">
+                <input type="text" class="chat-input" required placeholder="Type here, user1">
+                <button type="submit" class="button send-button">Send</button>
+            </form>
+            <!-- メッセージ入力と送信ボタン -->
+        </div>
+    </body>
+</html>
