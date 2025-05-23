@@ -1,7 +1,12 @@
 
 {% extends "base.html" %}
-{% block title %}Channels{% endblock %}
+{% block title %}
+<title>Channels</title>
+{% endblock %}
 
+{% block styleseets %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/channels.css') }}">
+{% endblock %}
 {% block content %}
     <div id="wrapper">
         <div class="invitation">
@@ -10,7 +15,7 @@
             </header>
                 <main class="main">
                     <form id="inviteform">
-                        <input type="text" id="channelName" name="naem" placeholder="Create Channel">
+                        <input type="text" id="channelName" name="name" placeholder="Create Channel">
                         <button type="submit">Submit</button>
                     </form>
 
