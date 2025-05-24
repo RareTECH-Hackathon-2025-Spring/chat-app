@@ -63,4 +63,4 @@ def login_process():
         return redirect(url_for('auth.login_page'))
 
     session['user_id'] = user['id']
-    return redirect(url_for('channels.channels_view', team_id=user['team_id']))
+    return redirect(url_for('channel_view'))
