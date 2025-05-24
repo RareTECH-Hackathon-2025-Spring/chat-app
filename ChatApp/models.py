@@ -35,7 +35,7 @@ class User:
     @classmethod
     def get_team_members(team_id):
         try:
-            with db_pool.get_gonn() as conn:
+            with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
                     sql = "SELECT * FROM users WHERE team_id=%s;"
                     cur.execute(sql,(team_id,)),
@@ -148,7 +148,7 @@ class Worktime:
     @classmethod
     def create(cls, user_id, start_time, end_time):
         try:
-            with db_pool.get.conn() as conn:
+            with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
                     sql = "INSERT INTO worktime (user_id, start_time, end_time) VALUES (%s, %s, %s);"
                     cur.execute(sql, (user_id, start_time, end_time,))
@@ -161,7 +161,7 @@ class Worktime:
     @classmethod
     def get_by_user_id(cls, user_id):
         try:
-            with db_pool.get.conn() as conn:
+            with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
                     sql = "SELECT * FROM worktime WHERE user_id = %s;"
                     cur.execute(sql, (user_id,))
@@ -175,7 +175,7 @@ class Worktime:
     @classmethod
     def get_by_team_id(cls, team_id):
         try:
-            with db_pool.get.conn() as conn:
+            with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
                     sql = "SELECT * FROM worktime INNER JOIN users ON worktime.user_id = users.id WHERE team_id = %s;"
                     cur.execute(sql, (team_id,))
@@ -190,7 +190,7 @@ class Worktime:
     @classmethod
     def update(cls, user_id, start_time, end_time):
         try:
-            with db_pool.get.conn() as conn:
+            with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
                     sql = "UPDATE worktime SET start_time = %s, end_time = %s, WHERE user_id = %s;"
                     cur.execute(sql, (start_time, end_time, user_id,))
@@ -205,7 +205,7 @@ class Message:
     @classmethod
     def get_all(cls, cid):
         try:
-            with db_pool.get.conn() as conn:
+            with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
                     sql = "SELECT * FROM channels WHERE channel_id = %s;"
                     cur.execute(sql, (cid,))
@@ -221,7 +221,7 @@ class Message:
     @classmethod
     def create(cls, uid, cid, message):
        try:
-           with db_pool.get.conn() as conn:
+           with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
                     sql = "INSERT INTO message(user_id, channel_id, content) VALUES(%s, %s, %s)"
                     cur.execute(sql, (uid, cid, message,))
@@ -235,7 +235,7 @@ class Message:
     @classmethod
     def delete(cls, message_id):
        try:
-           with db_pool.get.conn() as conn:
+           with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
                     sql = "DELETE FROM message WHERE id=%s;"
                     cur.execute(sql, (message_id,))

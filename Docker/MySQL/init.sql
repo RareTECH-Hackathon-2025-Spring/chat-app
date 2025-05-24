@@ -8,6 +8,10 @@ GRANT ALL PRIVILEGES ON chatapp.* TO 'testuser'@'%';
 FLUSH PRIVILEGES;
 USE chatapp;
 
+CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'testuser';
+GRANT ALL PRIVILEGES ON chatapp.* TO 'testuser'@'localhost';
+FLUSH PRIVILEGES;
+
 -- CREATE USER 'testuser' IDENTIFIED BY 'testuser';
 -- CREATE DATABASE chatapp;
 -- GRANT ALL PRIVILEGES ON chatapp.* TO 'testuser';

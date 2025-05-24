@@ -8,7 +8,7 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 @auth_bp.route('/signup', methods=['GET'])
 def signup_page():
-    teams = Team.get_all_teams()  # ←ここで呼び出してる！！
+    teams = Team.get_all_teams()
     return render_template('signup.html', teams=teams)
 
 
@@ -33,7 +33,8 @@ def signup_process():
         else:
             User.create(username, password, team_id)
             session['user_id'] = User.find_by_username(username)['id']
-        return redirect(url_for('auth.login_page'))
+            print(f"User {username} created successfully with team_id {team_id}")
+            return redirect(url_for('auth.login_page'))
     return redirect(url_for('auth.signup_page'))
 
 # ログインページの表示
@@ -52,8 +53,10 @@ def login_process():
         return redirect(url_for('auth.login_page'))
 
     user = User.find_by_username(username)
-
-    if not user:
+    if user:
+        print(f"User found: {user['username']}")
+    else:
+        print(f"User not found: {username}")
         flash('ユーザーが存在しません')
         return redirect(url_for('auth.login_page'))
 
@@ -63,4 +66,4 @@ def login_process():
         return redirect(url_for('auth.login_page'))
 
     session['user_id'] = user['id']
-    return redirect(url_for('channel_view'))
+    return redirect(url_for('channels.channels_view', team_id=user['team_id']))
