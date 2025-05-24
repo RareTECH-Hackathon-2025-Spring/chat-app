@@ -13,7 +13,7 @@ def channels_view(team_id):
         return redirect(url_for('auth.login_page'))
     else:
         channels = Channel.get_team_channels(team_id)
-        channels.reverse()
+        # channels.reverse()
         return render_template('channels.html', channels=channels, team_id=team_id)
     
 # チャンネル作成

@@ -1,10 +1,9 @@
-
 {% extends "base.html" %}
 {% block title %}
 <title>Channels</title>
 {% endblock %}
 
-{% block styleseets %}
+{% block stylesheets %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/channels.css') }}">
 {% endblock %}
 {% block content %}
@@ -24,8 +23,8 @@
                     </ul>
                 </main>
             </div>
-            <form>
-                 <button class="btn" type="button" name="worktime_btn" value="worktime">Work Time Log</button>
+            <form action="{{ url_for('worktime.worktime_view', team_id=team_id) }}" method="GET">
+                <button class="btn" type="submit" name="worktime_btn" value="worktime">Work Time Log</button>
             </form>
         </div>
 {% endblock %}
