@@ -33,12 +33,12 @@ class User:
             abort(500)
     
     @classmethod
-    def get_team_members(team_id):
+    def get_team_members(cls, team_id):
         try:
-            with db_pool.get_gonn() as conn:
+            with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
                     sql = "SELECT * FROM users WHERE team_id=%s;"
-                    cur.execute(sql,(team_id,)),
+                    cur.execute(sql, (team_id,))
                     team_members = cur.fetchall()
                 return team_members
         except pymysql.MySQLError as e:
@@ -67,7 +67,7 @@ class Channel:
         try:
             with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
-                    sql = "INSERT INTO channels (channel_name, channem_description, team_id, created_by) VALUES (%s, %s, %s, %s);"
+                    sql = "INSERT INTO channels (channel_name, channel_description, team_id, created_by) VALUES (%s, %s, %s, %s);"
                     cur.execute(sql, (name, description, team_id, user_id))
                     conn.commit()
         except pymysql.MySQLError as e:
@@ -80,7 +80,7 @@ class Channel:
         try:
             with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
-                    sql = "SELECT channem_name FROM channels WHERE team_id = %s;"
+                    sql = "SELECT channel_name FROM channels WHERE team_id = %s;"
                     cur.execute(sql, (team_id,))
                     channels = cur.fetchall()
                     return channels
@@ -94,7 +94,7 @@ class Channel:
         try:
             with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
-                    sql = "UPDATE channels SET channel_name = %s, channel_descritption = %s WHERE id = %s;"
+                    sql = "UPDATE channels SET channel_name = %s, channel_description = %s WHERE id = %s;"
                     cur.execute(sql, (name, description, channel_id,))
                     conn.commit()
         except pymysql.MySQLError as e:
@@ -148,9 +148,9 @@ class Worktime:
     @classmethod
     def create(cls, user_id, start_time, end_time):
         try:
-            with db_pool.get.conn() as conn:
+            with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
-                    sql = "INSERT INTO worktime (user_id, start_time, end_time) VALUES (%s, %s, %s);"
+                    sql = "INSERT INTO worktimes (user_id, start_time, end_time) VALUES (%s, %s, %s);"
                     cur.execute(sql, (user_id, start_time, end_time,))
                     conn.commit()
         except pymysql.MySQLError as e:
@@ -161,9 +161,9 @@ class Worktime:
     @classmethod
     def get_by_user_id(cls, user_id):
         try:
-            with db_pool.get.conn() as conn:
+            with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
-                    sql = "SELECT * FROM worktime WHERE user_id = %s;"
+                    sql = "SELECT * FROM worktimes WHERE user_id = %s;"
                     cur.execute(sql, (user_id,))
                     worktime = cur.fetchone()
                     return worktime
@@ -175,11 +175,16 @@ class Worktime:
     @classmethod
     def get_by_team_id(cls, team_id):
         try:
-            with db_pool.get.conn() as conn:
+            with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
-                    sql = "SELECT * FROM worktime INNER JOIN users ON worktime.user_id = users.id WHERE team_id = %s;"
+                    sql = """
+                    SELECT worktimes.*, users.username 
+                    FROM worktimes
+                    INNER JOIN users ON worktimes.user_id = users.id 
+                    WHERE users.team_id = %s;
+                    """
                     cur.execute(sql, (team_id,))
-                    worktimes = cur.fetchone()
+                    worktimes = cur.fetchall()
                     return worktimes
         except pymysql.MySQLError as e:
             print(f'Error creating worktime: {e}')
@@ -190,9 +195,9 @@ class Worktime:
     @classmethod
     def update(cls, user_id, start_time, end_time):
         try:
-            with db_pool.get.conn() as conn:
+            with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
-                    sql = "UPDATE worktime SET start_time = %s, end_time = %s, WHERE user_id = %s;"
+                    sql = "UPDATE worktimes SET start_time = %s, end_time = %s WHERE user_id = %s;"
                     cur.execute(sql, (start_time, end_time, user_id,))
                     conn.commit()
         except pymysql.MySQLError as e:
@@ -205,23 +210,21 @@ class Message:
     @classmethod
     def get_all(cls, cid):
         try:
-            with db_pool.get.conn() as conn:
+            with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
-                    sql = "SELECT * FROM channels WHERE channel_id = %s;"
+                    sql = "SELECT * FROM message WHERE channel_id = %s;"
                     cur.execute(sql, (cid,))
                     channels = cur.fetchall()
                     return channels
         except pymysql.Error as e:
             print(f'エラーが発生しています：{e}')
             abort(500)
-        finally:
-            db_pool.release(conn)
     
     #メッセージ投稿
     @classmethod
     def create(cls, uid, cid, message):
        try:
-           with db_pool.get.conn() as conn:
+           with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
                     sql = "INSERT INTO message(user_id, channel_id, content) VALUES(%s, %s, %s)"
                     cur.execute(sql, (uid, cid, message,))
@@ -229,13 +232,11 @@ class Message:
        except pymysql.Error as e:
            print(f'エラーが発生しています：{e}')
            abort(500)
-       finally:
-           db_pool.release(conn)
 
     @classmethod
     def delete(cls, message_id):
        try:
-           with db_pool.get.conn() as conn:
+           with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
                     sql = "DELETE FROM message WHERE id=%s;"
                     cur.execute(sql, (message_id,))
@@ -243,5 +244,3 @@ class Message:
        except pymysql.Error as e:
            print(f'エラーが発生しています：{e}')
            abort(500)
-       finally:
-           db_pool.release(conn)

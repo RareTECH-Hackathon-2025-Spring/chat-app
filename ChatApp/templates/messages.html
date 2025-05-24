@@ -1,6 +1,12 @@
-{% extends '../base.html' %} {% block title %}
-<title>メッセージ画面</title>
-{% endblock %} {% block body %}
+{% extends 'base.html' %}
+{% block title %}
+<title>Chat</title>
+
+{% blockstylesheets %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/messages.css') }}">
+{% endblock %} 
+
+{% endblock %}
 <div class="message-display-area">
     {% if messages|length > 0 %}
         {% for message in messages %}
