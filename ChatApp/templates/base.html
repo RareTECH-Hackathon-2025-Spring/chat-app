@@ -18,3 +18,13 @@
         {% block scripts %}{% endblock %}
     </body>
 </html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/work_time_log.css') }}">
+  </head>
+  <body>
+    {% include 'util/sidebar.html'%} {% include 'util/mobile-header.html'%} {%
+    block body %}{% endblock %} {% block script %}{% endblock %}
+  </body>
+</html>

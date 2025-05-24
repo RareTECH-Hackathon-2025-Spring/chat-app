@@ -1,0 +1,203 @@
+html, body {
+    height: 100%;
+}
+
+#main-container {
+display: flex;
+align-items: center;
+justify-content: center;
+height: 100%;
+margin: 0;
+padding: 0;
+border: 0;
+}   
+
+main {
+    box-sizing: border-box;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.auth-content {
+    width: 100%;
+    max-width: 416px;
+    margin: auto;
+}
+h2 {
+    margin: 0 0 40px;
+    font-size: 24px;
+}
+
+fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: inherit;
+    font-style: inherit;
+    line-height: 1;
+    vertical-align: baseline;
+}
+
+
+form fieldset {
+    margin: 0 0 12px;
+}
+
+label {
+    display: block;
+    margin: 14px 0 4px;
+    font-size: 15px;
+    color: #0d0c22;
+    font-weight: bold;
+}
+
+
+input.text-input{
+    width: 370px;
+    height: 14px;
+    border: solid #F3F3F6 3px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: .3s;
+    outline: 0;
+}
+
+input#signup.text-input {
+    padding: 18px 20px;
+}
+input#password.text-input {
+    padding: 18px 20px;
+}
+
+input.timelog {
+    font-size: 16px;
+    padding: 18px 20px;
+    width: 370px;
+}
+
+input.text-input:hover {
+    background-color: #ffff;
+    box-shadow: 0 0 5px 4px rgba(234,100,217,0.1);
+}   
+
+input.text-input:focus {    
+    outline: none;
+    border: solid 3px rgba(234,100,217,0.1);
+}
+
+input.text-input:active {
+    box-shadow: 0 0 5px 1px rgba(234,100,217,1);
+  }
+
+select#team-select2 {
+    width: 416px;
+    height: 56px;
+    padding: 18px 20px;
+    border: solid #F3F3F6 3px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: .3s;
+    outline: 0;
+}
+
+select#team-select2:hover {
+    background-color: #ffff;
+    box-shadow: 0 0 5px 4px rgba(234,100,217,0.1);
+}
+
+select#team-select2:focus {
+    outline: none;
+    border: solid 3px rgba(234,100,217,0.1);
+}
+
+select#team-select2:active {
+    box-shadow: 0 0 5px 1px rgba(234,100,217,1);
+  }
+
+.btn  {
+width: 416px;
+height: 56px;
+margin: 20px 0 0;
+padding: 0 24px;
+color: #ffff;
+background-color: #0d0c22;
+border-radius: 100px;
+border: solid #0d0c22;
+transition-property: opacity;
+transition-duration: 0.5s;
+text-align: center;
+cursor: pointer ;
+}
+
+.btn2 {
+   width: 416px;
+   height: 56px;
+   margin: 20px 0 0;
+   padding: 0 24px;
+   color: #0d0c22;
+   background-color: #e7e7e9;
+   border-radius: 100px;
+   border: solid #e7e7e9;
+   transition-property: opacity;
+   transition-duration: 0.5s;
+   text-align: center;
+   cursor: pointer ;
+   }
+
+.btn:hover {
+    opacity: 0.7;
+}
+
+.btn2:hover {
+    opacity: 0.7;
+}
+
+ .signup {
+    width: 406px;
+    height: 16px;
+    margin: 20px 0 0;
+    font-size: 14px;
+    text-align: center;
+}
+
+.info {
+    color: #0d0c22;
+    margin: 20px 0 0;    
+}
+.info:hover {
+    background-color: #F3F3F6;
+    opacity: 1;
+    text-decoration-color: transparent;
+}
+
+
+table {
+    width: 416px;
+    margin-top: 24px;
+    border-radius: 20px;
+    border: 2px ;
+    border-collapse: collapse;
+    letter-spacing: 1px;
+}
+
+tr#timelist-style {
+    background-color: #e7e7e9;
+}
+
+th {
+    border: 1px solid rgb(160 160 160);
+    padding: 8px 10px;
+    font-size: 13px;
+
+}
+td {
+  border: 1px solid rgb(160 160 160);
+  padding: 8px 10px;
+      font-weight: lighter;
+
+}
+
+td {
+  text-align: center;
+}
