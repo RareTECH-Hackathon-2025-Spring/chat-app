@@ -11,8 +11,7 @@ class DB:
             user = os.getenv('DB_USER'),
             password = os.getenv('DB_PASSWORD'),
             database = os.getenv('DB_DATABASE'),
-            max_size = 20,
-            timeout=30,
+            max_size = 5,
             charset = "utf8mb4",
             cursorclass = pymysql.cursors.DictCursor,
         )
