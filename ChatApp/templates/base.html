@@ -3,8 +3,13 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        {% block title %}{% endblock %}
-        {% block stylesheets %}{% endblock %}
+        <title>{% block title %}ChatApp{% endblock %}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/work_time_log.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/channels.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/messages.css') }}">
     </head>
     
     <body>
