@@ -2,6 +2,11 @@
 {% block title %}
 <title>Sign Up</title>
 {% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+{% endblock %}
+
 {% block content %}
     <div id="main-container">
         <section class="content">
@@ -28,7 +33,7 @@
                                     <select id="team-select" name="team_id">
                                     <option value="">Team Selection</option>
                                     {% for team in teams %}
-                                        <option value="{{ team.id }}">{{ team.teamname  }}</option>
+                                        <option value="{{ team.id }}">{{ team.teamname }}</option>
                                     {% endfor %}
                                     </select>
                                 </fieldset>
