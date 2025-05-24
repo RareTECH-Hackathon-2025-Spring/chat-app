@@ -8,7 +8,9 @@
     </head> 
     <body>
         {% block content %}{% endblock %}
+        
+        {% block scripts %}
         <script src="{{ url_for('static', filename='js/channels.js') }}"></script>
-        {% block scripts %}{% endblock %}
+        {% endblock %}
     </body>
 </html>
