@@ -3,6 +3,7 @@
 {% block title %}
 <title>Channels</title>
 {% endblock %}
+
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/channels.css') }}">
 {% endblock %}
@@ -24,12 +25,11 @@
                 </main>
             </div>
             <form>
-                 <button class="btn" type="submit" name="worktime_btn" value="worktime">Work Time Log</button>
+                 <button class="btn" type="button" name="worktime_btn" value="worktime">Work Time Log</button>
             </form>
         </div>
 {% endblock %}
 
 {% block scripts %}
-{{ super() }}
   <script src="{{ url_for('static', filename='js/channels.js') }}"></script>
 {% endblock %}
