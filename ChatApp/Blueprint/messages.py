@@ -5,7 +5,7 @@ messages_bp = Blueprint('messages', __name__, url_prefix='/messages')
 
 #@app.route ではなく、 @messages_bp.route を使用
 #メッセージ表示
-@messages_bp.route('/<int:team_id>/<int:cid>/messages', methods=['GET'])
+@messages_bp.route('/<int:team_id>/<int:cid>/messages', method=['GET'])
 def detail(team_id, cid):
     uid = session.get('user_id')
     if uid is None:
