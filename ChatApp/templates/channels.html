@@ -20,7 +20,13 @@
                     </form>
 
                     <ul id="invitedList">
-                        <!-- ここはチャット画面へ遷移できるよに設計する -->
+                        {% for channel in channels %}
+                            <li>
+                                <a href="{{ url_for('messages.detail', team_id=team_id, cid=channel.id) }}">
+                                    {{ channel.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
                     </ul>
                 </main>
             </div>
