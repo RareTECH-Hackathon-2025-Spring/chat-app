@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 {% block title %}
 <title>Channels</title>
@@ -29,8 +30,8 @@
                     </ul>
                 </main>
             </div>
-            <form action="{{ url_for('worktime.worktime_view', team_id=team_id) }}" method="GET">
-                <button class="btn" type="submit" name="worktime_btn" value="worktime">Work Time Log</button>
+            <form>
+                 <button class="btn" type="button" name="worktime_btn" value="worktime">Work Time Log</button>
             </form>
         </div>
 {% endblock %}
