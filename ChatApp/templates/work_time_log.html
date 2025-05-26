@@ -3,7 +3,7 @@
 <title>Work Time Log</title>
 {% endblock %}
 
-{% block styleseets %}
+{% block stylesheets %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/work_time_log.css') }}">
 {% endblock %}
 
@@ -53,7 +53,7 @@
                                     {% endfor %}
                                 </tr>
                             </table>
-                            <button class="btn" type="button" name="Channels_btn" value="channels">Channels</button>
+                            <button class="btn" type="submit" name="Channels_btn" value="channels">Channels</button>
                         </form>
                     </div>                   
                 </div>
