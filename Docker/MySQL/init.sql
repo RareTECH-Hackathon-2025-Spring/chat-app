@@ -103,7 +103,7 @@ INSERT INTO teams (teamname, url_token) VALUES
 -- テスト用のダミーデータ
 
 -- password_hash は 'password' の ハッシュ値（SHA256）
-INSERT INTO users (id, username password_hash, team_id, created_at) VALUES 
+INSERT INTO users (id, username, password_hash, team_id, created_at) VALUES 
 (1, 'test', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 1, '2017-05-05 00:00:00.000+0000');
 
 
