@@ -19,15 +19,19 @@
                         <button type="submit">Submit</button>
                     </form>
 
+                    {% if channels %}
                     <ul id="invitedList">
                         {% for channel in channels %}
                             <li>
                                 <a href="{{ url_for('messages.detail', team_id=team_id, cid=channel.id) }}">
-                                    {{ channel.name }}
+                                    {{ channel.channel_name }}
                                 </a>
                             </li>
                         {% endfor %}
                     </ul>
+                    {% else %}
+                        <p>このチームにはまだチャンネルがありません</p>
+                    {% endif %}
                 </main>
             </div>
             <form>

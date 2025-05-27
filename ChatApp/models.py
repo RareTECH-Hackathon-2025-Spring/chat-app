@@ -67,7 +67,7 @@ class Channel:
         try:
             with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
-                    sql = "INSERT INTO channels (channel_name, channem_description, team_id, created_by) VALUES (%s, %s, %s, %s);"
+                    sql = "INSERT INTO channels (channel_name, channel_description, team_id, created_by) VALUES (%s, %s, %s, %s);"
                     cur.execute(sql, (name, description, team_id, user_id))
                     conn.commit()
         except pymysql.MySQLError as e:
@@ -80,7 +80,7 @@ class Channel:
         try:
             with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
-                    sql = "SELECT channem_name FROM channels WHERE team_id = %s;"
+                    sql = "SELECT channel_name FROM channels WHERE team_id = %s;"
                     cur.execute(sql, (team_id,))
                     channels = cur.fetchall()
                     return channels

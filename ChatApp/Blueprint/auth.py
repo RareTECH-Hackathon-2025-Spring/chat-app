@@ -33,12 +33,15 @@ def signup_process():
         else:
             User.create(username, password, team_id)
             session['user_id'] = User.find_by_username(username)['id']
-        return redirect(url_for('auth.login_page'))
+            print(f"サインアップ完了")
+            return redirect(url_for('auth.login_page'))
+
     return redirect(url_for('auth.signup_page'))
 
 # ログインページの表示
 @auth_bp.route('/login', methods=['GET'])
 def login_page():
+    print(f'ログインページの表示')
     return render_template('login.html')
 
 # ログイン処理
@@ -63,4 +66,6 @@ def login_process():
         return redirect(url_for('auth.login_page'))
 
     session['user_id'] = user['id']
-    return redirect(url_for('channel_view'))
+    team_id = user['team_id']
+    print(f"ログイン完了")
+    return redirect(url_for('channels.channels_view', team_id=team_id))

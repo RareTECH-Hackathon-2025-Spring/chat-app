@@ -12,7 +12,7 @@ def channels_view(team_id):
     if uid is None:
         return redirect(url_for('auth.login_page'))
     else:
-        channels = Channel.get_team_channels(team_id)
+        channels = list(Channel.get_team_channels(team_id))
         channels.reverse()
         return render_template('channels.html', channels=channels, team_id=team_id)
     
