@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}ChatApp{% endblock %}</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/work_time_log.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/channels.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/messages.css') }}">
-    </head>
-    
-    <body>
-        {% block content %}{% endblock %}
-        <script src="{{ url_for('static', filename='js/channels.js') }}"></script>
-        {% block scripts %}{% endblock %}
-    </body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}{% endblock %}
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class="flashes">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+    {% block scripts %} {% endblock %}
+</body>
+
 </html>

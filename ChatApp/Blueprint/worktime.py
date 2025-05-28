@@ -16,14 +16,16 @@ def worktime_input(team_id):
     start_time = request.form.get('start_time')
     end_time = request.form.get('end_time')
 
-    worktime = Worktime.find_by_user_id(uid)
+    worktime = Worktime.get_by_user_id(uid)
 
     if worktime is None:
-        Worktime.create(uid, start_time, end_time)
+        Worktime.create(uid, team_id, start_time, end_time)
     else:
         Worktime.update(uid, start_time, end_time)
 
-# 勤怠の表示
+    return redirect(url_for('worktime.worktime_view', team_id=team_id))
+
+# 勤怠ページの表示
 @worktime_bp.route('/<int:team_id>', methods=['GET'])
 def worktime_view(team_id):
     uid = session.get('user_id')
@@ -32,6 +34,7 @@ def worktime_view(team_id):
     
     worktimes = Worktime.get_by_team_id(team_id)
     team_members = User.get_team_members(team_id)
+    print("Rendering work_time_log.html...")
 
     return render_template('work_time_log.html', worktimes = worktimes, team_id = team_id, team_members = team_members)
     

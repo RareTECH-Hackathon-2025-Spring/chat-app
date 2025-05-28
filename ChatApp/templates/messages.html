@@ -1,20 +1,26 @@
 <!-- {% extends '../base.html' %} {% block title %}
+=======
+{% extends 'base.html' %}
+
+{% block title %}
 <title>メッセージ画面</title>
-{% endblock %} {% block body %}
+{% endblock %}
+
+{% block content %}
 <div class="message-display-area">
     {% if messages|length > 0 %}
-        {% for message in messages %}
-            {% if message.uid == uid %}
-            <div class="my-message-bubble">
-                <p>{{ message.message }}</p>
-                </div>
-            {% else %}
-            <div class="other-user-message-bubble">
-                <p class="user-name">{{ message.user_name }}</p>
-                <p>{{ message.message }}</p>
-            </div>
-            {% endif %}
-        {% endfor %}
+    {% for message in messages %}
+    {% if message.uid == uid %}
+    <div class="my-message-bubble">
+        <p>{{ message.message }}</p>
+    </div>
+    {% else %}
+    <div class="other-user-message-bubble">
+        <p class="user-name">{{ message.user_name }}</p>
+        <p>{{ message.message }}</p>
+    </div>
+    {% endif %}
+    {% endfor %}
     {% else %}
     <p class="no-message-yet">まだメッセージがありません</p>
     {% endif %}
@@ -387,3 +393,5 @@
     </script>
 </body>
 </html>
+=======
+{% endblock %}
