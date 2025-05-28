@@ -1,41 +1,41 @@
-.message-display-area {
+/* .message-display-area {
     flex-grow: 1; 
     padding: 20px;
     overflow-y: auto; /* メッセージが増えたらスクロール */
-    background-color: #ffffff; 
+    /* background-color: #ffffff; 
     border-radius: 8px;
     display: flex;
     flex-direction: column; /* メッセージを縦に並べる */
-    gap: 10px; /* メッセージ間のスペース */
-}
+    /* gap: 10px; メッセージ間のスペース
+}  */
 
-.no-message-yet {
+/* .no-message-yet {
     text-align: center;
     color: #666;
     margin-top: 50px;
-}
+} */
 
 /* メッセージバブルの共通スタイル */
-.my-message-bubble,
+/* .my-message-bubble,
 .other-user-message-bubble {
     max-width: 70%;
     padding: 10px 15px;
     border-radius: 18px;
     word-wrap: break-word;
-}
+} */
 
 /* 自分のメッセージ */
-.my-message-bubble {
+/* .my-message-bubble {
     align-self: flex-end; /* 親要素の右端に寄せる */
-    background-color: #007bff; /* 青色の背景 */
-    color: white;
-}
+    /* background-color: #007bff; 青色の背景 */
+    /* color: white;
+} */ 
 
 /* 他のユーザーのメッセージ */
-.other-user-message-bubble {
+/* .other-user-message-bubble {
     align-self: flex-start; /* 親要素の左端に寄せる */
-    background-color: #e2e2e2; /* 灰色の背景 */
-    color: #333;
+    /* background-color: #e2e2e2; 灰色の背景  */
+    /* color: #333;
 }
 
 .other-user-message-bubble .user-name {
@@ -43,20 +43,20 @@
     color: #555;
     margin-bottom: 5px;
     font-weight: bold;
-}
+} */
 
 /* メッセージ入力エリア */
-.message-input-area {
+/* .message-input-area {
     padding: 15px 20px;
     border-top: 1px solid #eee;
     background-color: #f9f9f9;
     border-radius: 0 0 8px 8px;
-    display: flex; /* テキストエリアとボタンを横並びにする */
-    align-items: center;
+    display: flex; テキストエリアとボタンを横並びにする */
+    /* align-items: center;
     gap: 10px;
-}
+} */
 
-.message-form {
+/* .message-form {
     display: flex;
     flex-grow: 1;
     gap: 10px;
@@ -95,4 +95,5 @@
 
 .send-message-button:hover {
     background-color: #0056b3;
-}
+} */
+
