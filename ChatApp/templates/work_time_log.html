@@ -1,3 +1,13 @@
+{% extends 'base.html'%}
+{% block title %}
+<title>Work Time Log</title>
+{% endblock %}
+
+{% block styleseets %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/work_time_log.css') }}">
+{% endblock %}
+
+{% block content %}
 
     <title>Work Time Log</title>
 </head>
@@ -12,6 +22,25 @@
                             <div class="form-fields">
                                 <fieldset>
                                     <label for="team_id">Username</label>
+                                    <select id="team-select2" name="user_id">
+                                    <option value=""disabled selected>User Selection</option>
+                                    {% for team_member in team_members %}
+                                    <option value="{{ team_member.id }}">{{ team_member.username}}</option>
+                                    {% endfor %}
+                                    </select>
+                                </fieldset>
+                                <fieldset>
+                                    <label for="start_time">Start Time</label>
+                                    <input type="time" name="start_time" class="text-input timelog"
+                                    min="00:00" max="23:59">
+                                </fieldset>
+                                <fieldset>
+                                    <label for="end_time">End_time</label>
+                                    <input type="time" name="end_time" class="text-input timelog"
+                                    min="00:00" max="23:59">
+                                 </fieldset>
+                            </div>
+                            <button class="btn2" type="submit" name="time_send_btn" value="work_time_log">Send</button>
                                     <select id="team-select2" name="team_id">
                                     </select>
                                 </fieldset>
@@ -35,6 +64,14 @@
                                     <th>Clock out</th>
                                 </tr>
                                 <tr>
+                                    {% for worktime in worktimes %}
+                                    <th>{{ worktime.username }}</th>
+                                    <th>{{ worktime.start_time }}</th>
+                                    <th>{{ worktime.end_time }}</th>
+                                    {% endfor %}
+                                </tr>
+                            </table>
+                            <button class="btn" type="button" name="Channels_btn" value="channels">Channels</button>
                                     <th>Keisuke</th>
                                     <td></td>
                                     <td></td>
@@ -67,5 +104,6 @@
             </main>
         </section>
     </div>
+{% endblock %}
 </body>
 </html>
