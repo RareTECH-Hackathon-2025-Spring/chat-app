@@ -12,7 +12,7 @@
         <section class="content">
             <main>
                 <div class="auth-content">
-                    <h2>Sign up to Team Account</h2>
+                    <h2>Sign Up for an Account</h2>
                     <div class="auth-form sign-up-form">
                         <form method="post">
                             <div class="form-fields">
@@ -21,12 +21,12 @@
                                     <input type="text" name="username" id="signup" class="text-input" placeholder="Username">
                                 </fieldset>
                                 <fieldset>
-                                    <label for="password">Password</label>
-                                    <input type="password" name="password" id="password1" class="text-input" placeholder="Password 6-32 characters">
+                                    <label for="password">Password(6–32 characters)</label>
+                                    <input type="password" name="password" id="password1" class="text-input" placeholder="Password">
                                 </fieldset>
                                 <fieldset>
                                     <label for="password">Confirm Password</label>
-                                    <input type="password" name="passwordConfirmation" id="password2"  class="text-input">
+                                    <input type="password" name="passwordConfirmation" id="password2"  class="text-input" placeholder="Password">
                                 </fieldset>
                                 <fieldset>
                                     <label for="team-select">Team Selection</label>
@@ -40,7 +40,7 @@
                             </div>
                             <button class="btn" type="submit">Create Account</button> 
                             <p class="signup">Already have an account?
-                                <a class="info" href="{{ url_for('auth.login_page') }}">Sign in</a>
+                                <a class="info" href="{{ url_for('auth.login_page') }}">Log in</a>
                             </p>
                         </form>
                     </div>

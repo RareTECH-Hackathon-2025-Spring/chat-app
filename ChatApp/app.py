@@ -2,7 +2,7 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from flask import Flask
+from flask import Flask, redirect, url_for
 from ChatApp.Blueprint.auth import auth_bp
 from ChatApp.Blueprint.channels import channels_bp
 from ChatApp.Blueprint.messages import messages_bp
@@ -18,7 +18,7 @@ app.register_blueprint(worktime_bp)
 
 @app.route('/')
 def home():
-    return "http://127.0.0.1:5000/auth/login"
+    return redirect(url_for('auth.login_page'))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

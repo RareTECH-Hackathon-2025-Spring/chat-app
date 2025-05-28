@@ -12,7 +12,7 @@
     <section class="content">
         <main>
             <div class="auth-content">
-                <h2>Log in to an Account</h2>
+                <h2>Log In to Your Account</h2>
                 <div class="auth-form sign-in-form">
                     <form method="post">
                         <div class="form-fields">
@@ -22,11 +22,11 @@
                             </fieldset>
                             <fieldset>
                                 <label for="password">Password</label>
-                                <input type="password"  name="password" id="password" class="text-input">
+                                <input type="password"  name="password" id="password" class="text-input" placeholder="Password">
                             </fieldset>
                         </div>
                       
-                        <button class="btn" type="submit" name="sign_in_btn" value="sign_in">Sign in</button>
+                        <button class="btn" type="submit" name="sign_in_btn" value="sign_in">Log in</button>
                         <p class="sign">Don't have an account?
                           
                         <a class="info" href="{{ url_for('auth.signup_page') }}">Sign up</a>

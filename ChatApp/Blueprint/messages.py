@@ -1,5 +1,5 @@
 from flask import Blueprint, session, redirect, url_for, render_template, request
-from ChatApp.models import Channel, Message
+from ChatApp.models import Channel, Message, Team
 
 messages_bp = Blueprint('messages', __name__, url_prefix='/messages')
 
@@ -14,7 +14,7 @@ def detail(team_id, cid):
     channel = Channel.find_by_channel_id(cid)
     messages = Message.get_all(cid)
 
-    return render_template('messages.html', messages=messages, channel=channel, uid=uid)
+    return render_template('messages.html', messages=messages, channel=channel, uid=uid, team_id=team_id)
 
 #メッセージ投稿
 @messages_bp.route('/<int:team_id>/<int:cid>', methods=['POST'])
