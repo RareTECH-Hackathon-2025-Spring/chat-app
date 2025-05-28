@@ -1,0 +1,148 @@
+body {
+    height: 100vh;
+    background: #000;
+}
+
+
+/* ユーザー選択ボタン */
+.button {
+    border: none; 
+    padding: 0.625em;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+
+.button:hover {
+    filter: brightness(0.9);
+}
+
+.button:active {
+    transform: translateY(2px);
+    /* bottunをクリックすると2px縦下に動く */
+}
+
+.person-selector {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin: 3em auto 1em;
+    max-width: 40em;
+}
+
+.person-selector-button {
+    width: 100%;
+    background-color: #15202b;
+    color: #ffff;
+    font-size: 1.1em;
+} 
+
+.active-person {
+    background: #08529d;
+    box-shadow: 0 0 0.5em 0.1em #c3c3c333;
+}
+
+/* チャット画面 */
+
+.chat-container {
+    background: #15202b;
+    border-radius: 0.5em;
+    padding: 0.5em 1.25em;
+    margin: auto;
+    max-width: 37.5em;
+    height: 37.5em;
+    box-shadow: 0 0 0.5em 0.1em #c3c3c333;
+}
+
+.chat-header {
+    margin-bottom: 1em;
+    color: #fff;
+}
+
+.chat-header h2 {
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+.chat-messages {
+    height: 23em;
+    overflow-y: scroll;
+    /*  •overflow：要素の中身がはみ出したときの表示方法を指定します。
+	•	y：縦方向（上下）の制御です。
+	•	scroll：常にスクロールバーを表示します（内容がはみ出していなくても出ます）。 */
+}
+
+/* .chat-messages::-webkit-scrollbar {
+    display: none;
+}    */
+/* .chat-messages 要素の スクロールバー（特に WebKit 系ブラウザのもの）を非表示にする設定です。 */
+
+
+.message {
+    padding: 0.625em;
+    border-radius: 1em;
+    margin-bottom: 0.625em;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+}
+
+.message-sender {
+    font-weight: bold;
+    margin-bottom: 0.31em;
+}
+
+.message-text {
+    font-size: 1em;
+    margin-bottom: 0.31em;
+    word-wrap: break-word;
+    /* word-wrap: break-word; は、長い単語やURLなどを途中で折り返して、はみ出さないようにするためのCSSプロパティです。 */
+}
+
+.message-timestamp {
+    font-size: 0.75em;
+    text-align: right;
+}
+
+.blue-bg {
+    background-color: #1c9bef;
+}
+
+.gray-bg {
+    background-color: #3d5365;
+}
+/* プロパティ名
+説明
+background-color背景の「色」だけを設定する
+background 背景の「色、画像、位置、繰り返しなど」をまとめて一括で設定する */
+
+.chat-input-form {
+    display: flex;
+    align-items: center;
+    margin-top: 2em;
+    gap: 0.625em;
+}
+
+.chat-input {
+    padding: 0.625em;
+    border: none;
+    border-radius: 0.5em;
+    background-color: #f5f5f5;
+    color: #333;
+    font-size: 1em;
+    flex-grow: 1;
+}
+/* flex-grow: 1; は、Flexbox（フレックスボックス） の子要素に使うプロパティで、
+「余ったスペースをこの要素にどれだけ広げていいか」を指定するもの です。 */
+
+.send-button {
+    background-color: #1c9bef;
+    color: #fff;
+    font-size: 1em;
+    font-size: bold;
+}
+
+.clear-chat-button {
+    display: block
+    ;
+    margin: 2.5em auto;
+}
