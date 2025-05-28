@@ -17,7 +17,7 @@ const clearChatBtn = document.querySelector('.clear-chat-button') //34行目
 // userまたはuser2が各メッセージに対して、18~27行目のメッセージ要素を作成
 //名前、メッセージ、タイムスタンプを取得、この関数を作成して、毎回入力する必要を省く。
 
-const chatMessageElement = (message) => `
+const createChatMessageElement = (message) => `
     <div class="message ${message.sender == 'user' ? 'blue-bg' : 'gray-bg'}">
         <div class="message-sender">${message.sender}</div>
         <div class="message-text">${message.text}</div>
@@ -50,6 +50,8 @@ const updateMessageSender = (name) => {
             user2SelectorBtn.classList.add('active-person')
             userSelectorBtn.classList.remove('active-person')
         }
+
+        chatInput.focus()
 }
 
 userSelectorBtn.onclick = () => updateMessageSender('user')
@@ -64,7 +66,7 @@ user2SelectorBtn.onclick = () => updateMessageSender('user2')
     // タイムスタンプの取得
     const timestamp = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true})
     const message = {
-       sender: messageSenders,
+       sender: messageSender,
        text: chatInput.value,
        timestamp,
 
@@ -74,4 +76,12 @@ user2SelectorBtn.onclick = () => updateMessageSender('user2')
     //4.const message = { … } メッセージ情報をまとめたオブジェクトリテラルを定義し、変数 message に代入します。
     //5.後続処理へ）こうして作成した message オブジェクトを、画面への表示やサーバ送信など、チャット機能の次のステップに渡して使います。
     }
+
+    chatMessages.innerHTML += createChatMessageElement(message)
+
+    // チャットを送信すると最新のメッセージを表示してくれる
+    chatInputForm.reset()
+    chatMessages.scrollTop = chatMessages.scrollHeight
 }
+
+chatInputForm.addEventListener('submit', sendMessage)
