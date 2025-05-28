@@ -1,4 +1,4 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 {% block title %}
 <title>Work Time Log</title>
 {% endblock %}
@@ -8,56 +8,72 @@
 {% endblock %}
 
 {% block content %}
-    <div id="main-container">
-        <section class="content">
-            <main>
-                <div class="auth-content">
-                    <h2>Work Time Log</h2>
-                    <div class="auth-form sign-in-form">
-                        <form method="post">
-                            <div class="form-fields">
-                                <fieldset>
-                                    <label for="team_id">Username</label>
-                                    <select id="team-select2" name="user_id">
-                                    <option value=""disabled selected>User Selection</option>
-                                    {% for team_member in team_members %}
-                                    <option value="{{ team_member.id }}">{{ team_member.username}}</option>
-                                    {% endfor %}
-                                    </select>
-                                </fieldset>
-                                <fieldset>
-                                    <label for="start_time">Start Time</label>
-                                    <input type="time" name="start_time" class="text-input timelog"
-                                    min="00:00" max="23:59">
-                                </fieldset>
-                                <fieldset>
-                                    <label for="end_time">End_time</label>
-                                    <input type="time" name="end_time" class="text-input timelog"
-                                    min="00:00" max="23:59">
-                                 </fieldset>
-                            </div>
-                            <button class="btn2" type="submit" name="time_send_btn" value="work_time_log">Send</button>
+<div id="main-container">
+  <section class="content">
+    <main>
+      <div class="auth-content">
+        <h2>Work Time Log</h2>
 
-                            <!-- 出退勤時間一覧表示 -->
-                            <table id="timelist">
-                                <tr id="timelist-style">
-                                    <th>Name</th>
-                                    <th>Clock in</th>
-                                    <th>Clock out</th>
-                                </tr>
-                                <tr>
-                                    {% for worktime in worktimes %}
-                                    <th>{{ worktime.username }}</th>
-                                    <th>{{ worktime.start_time }}</th>
-                                    <th>{{ worktime.end_time }}</th>
-                                    {% endfor %}
-                                </tr>
-                            </table>
-                            <button class="btn" type="submit" name="Channels_btn" value="channels">Channels</button>
-                        </form>
-                    </div>                   
-                </div>
-            </main>
-        </section>
-    </div>
+        <!-- 勤怠入力フォーム -->
+        <div class="auth-form sign-in-form">
+          <form method="post" action="{{ url_for('worktime.worktime_view', team_id=team_id) }}">
+            <div class="form-fields">
+              <fieldset>
+                <label for="user_id">Username</label>
+                <select id="team-select2" name="user_id" required>
+                  <option value="" disabled selected>User Selection</option>
+                  {% for team_member in team_members %}
+                    <option value="{{ team_member.id }}">{{ team_member.username }}</option>
+                  {% endfor %}
+                </select>
+              </fieldset>
+
+              <fieldset>
+                <label for="start_time">Start Time</label>
+                <input type="time" name="start_time" class="text-input timelog"
+                       min="00:00" max="23:59" required>
+              </fieldset>
+
+              <fieldset>
+                <label for="end_time">End Time</label>
+                <input type="time" name="end_time" class="text-input timelog"
+                       min="00:00" max="23:59" required>
+              </fieldset>
+            </div>
+
+            <button class="btn2" type="submit">Send</button>
+          </form>
+        </div>
+
+        <!-- 勤怠一覧表示 -->
+        <div class="timelog-list">
+          <table id="timelist">
+            <thead>
+              <tr id="timelist-style">
+                <th>Name</th>
+                <th>Clock in</th>
+                <th>Clock out</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for worktime in worktimes %}
+              <tr>
+                <td>{{ worktime.username }}</td>
+                <td>{{ worktime.start_time }}</td>
+                <td>{{ worktime.end_time }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- チャンネル画面への遷移ボタン（GETで遷移）-->
+        <form method="get" action="{{ url_for('channels.channels_view', team_id=team_id) }}">
+          <button class="btn" type="submit">Back to Channels</button>
+        </form>
+
+      </div>
+    </main>
+  </section>
+</div>
 {% endblock %}

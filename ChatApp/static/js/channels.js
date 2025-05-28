@@ -9,62 +9,63 @@ const ul    = document.querySelector('#invitedList');
  * @param {number} teamId      チームID（固定でもOK）
  * @param {number} channelId   チャンネルID（Date.now() で仮生成）
  * @param {string} channelName チャンネル名
+ * @param {string} channelDescription
  */
 
-// 2. 保存済みチャンネルの復元
-let channels = JSON.parse(localStorage.getItem('channels') || '[]');
-channels.forEach(ch => {
-  ul.appendChild(createLi(ch.teamId, ch.id, ch.name));
-})
+// // 2. 保存済みチャンネルの復元
+// let channels = JSON.parse(localStorage.getItem('channels') || '[]');
+// channels.forEach(ch => {
+//   ul.appendChild(createLi(ch.teamId, ch.id, ch.name));
+// })
 
 // 3. <li> を組み立てるヘルパー関数 
-function createLi(teamId, channelId, channelName) {
-  const li = document.createElement('li');
+// function createLi(teamId, channelId, channelName, channelDescription) {
+//   const li = document.createElement('li');
 
-  // チャンネルへのリンクを作成
-  const a = document.createElement('a');
-  a.textContent = channelName; // リンクテキスト
-  a.href        = `/channels/${teamId}/messages/${channelId}`;// 遷移先URL
-  a.classList.add('channel-link');
+//   // チャンネルへのリンクを作成
+//   const a = document.createElement('a');
+//   a.textContent = channelName; // リンクテキスト
+//   a.href        = `/messages/${teamId}/${channelId}/`;// 遷移先URL
+//   a.classList.add('channel-link');
 
-  // 編集／削除ボタン 
-  const editBtn   = document.createElement('button');
-  editBtn.textContent   = 'edit';
-  const removeBtn = document.createElement('button');
-  removeBtn.textContent = 'remove';
+//   // 編集／削除ボタン 
+//   const editBtn   = document.createElement('button');
+//   editBtn.textContent   = 'edit';
+//   const removeBtn = document.createElement('button');
+//   removeBtn.textContent = 'remove';
 
-  // 一度にまとめて <li> に追加
-  li.append(a, editBtn, removeBtn);
+//   // 一度にまとめて <li> に追加
+//   li.append(a, editBtn, removeBtn);
 
-  // 後で配列を検索しやすいように dataset に ID を保存
-  li.dataset.channelId = channelId;
-  li.dataset.teamId = teamId;
-  return li;
-}
+//   // 後で配列を検索しやすいように dataset に ID を保存
+//   li.dataset.channelId = channelId;
+//   li.dataset.teamId = teamId;
+//   return li;
+// }
 
 // 4. フォーム送信時の処理
-form.addEventListener('submit', event => {
-  event.preventDefault(); // ページ再読み込みを防ぐ
-  const name = input.value.trim(); // 前後スペースを除去
-  if (!name) {
-    alert('Enter the name please!');
-    return;
-  }
+// form.addEventListener('submit', event => {
+//   event.preventDefault(); // ページ再読み込みを防ぐ
+//   const name = input.value.trim(); // 前後スペースを除去
+//   if (!name) {
+//     alert('Enter the name please!');
+//     return;
+//   }
 
-  // 仮のID生成（本番はサーバーから返ってくるIDを使う）
-  const newId = Date.now();
-  const teamId = 1;  // 今は固定、将来はサーバーから
+//   // 仮のID生成（本番はサーバーから返ってくるIDを使う）
+//   // const newId = Date.now();
+//   // const teamId = 1;  // 今は固定、将来はサーバーから
 
-  // 画面に反映
-  const li = createLi(teamId, newId, name);
-  ul.appendChild(li);
+//   // // 画面に反映
+//   // const li = createLi(teamId, newId, name);
+//   // ul.appendChild(li);
 
-  // localStorageに保存
-  channels.push({ teamId, id: newId, name });
-  localStorage.setItem('channels', JSON.stringify(channels));
+//   // localStorageに保存
+//   channels.push({ teamId, id: newId, name });
+//   // localStorage.setItem('channels', JSON.stringify(channels));
 
-  input.value = '';　 // 入力欄をクリア
-});
+//   input.value = ''; // 入力欄をクリア
+// });
 
 // 5. 編集／削除ボタンのイベント処理
 ul.addEventListener('click', event => {

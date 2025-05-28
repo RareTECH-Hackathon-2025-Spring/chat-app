@@ -17,7 +17,7 @@ def channels_view(team_id):
         return render_template('channels.html', channels=channels, team_id=team_id)
     
 # チャンネル作成
-@channels_bp.route('/<int:team_id>/create', methods=['GET'])
+@channels_bp.route('/<int:team_id>/create', methods=['POST'])
 def create_channel_page(team_id):
     uid = session.get('user_id')
     if uid is None:
