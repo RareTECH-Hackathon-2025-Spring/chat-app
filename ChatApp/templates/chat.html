@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}
+<!-- {% extends "base.html" %} {% block title %}
 <title>チャット画面</title>
 {% endblock %} {% block content %}
     <div class="container">
@@ -14,8 +14,126 @@
             <button class="work_time_log-btn"> Work Time Log </button>
 
         </div>
-        <!-- <main class="main-content">
-            {% include 'messages.html' %}
-        </main> -->
     </div>
-{% endblock %}
+{% endblock %} -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>チャット一覧</title>
+    <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Channels</h1>
+        <h2>L Team</h2>
+        <div class="channel-list" id="channelList">
+            <ul>
+                <!-- <li data-channel-id="バックエンド"><a href="messages.html?channel=バックエンド&channel_name=バックエンド">バックエンド</a></li>
+                <li data-channel-id="フロントエンド"><a href="messages.html?channel=フロントエンド&channel_name=フロントエンド">フロントエンド</a></li>
+                <li data-channel-id="インフラ"><a href="messages.html?channel=インフラ&channel_name=インフラ">インフラ</a></li>
+                <li data-channel-id="タウンスクエア"><a href="messages.html?channel=タウンスクエア&channel_name=タウンスクエア">タウンスクエア</a></li>
+                <li data-channel-id="オフトピック"><a href="messages.html?channel=オフトピック&channel_name=オフトピック">オフトピック</a></li> -->
+            </ul>
+        </div>
+        <div class="button-container">
+            <button class="create-channel-button" id="createChannelButton">Create channel</button>
+        </div>
+        <div class="button-container">
+            <button class="delete-channel-button" id="deleteChannelButton">Delete Channel</button>
+        </div>
+        <div class="button-container">
+            <button class="work-time-log-button" onclick="location.href='work_time_log.html'">Work Time Log</button>
+        </div>
+    </div>
+
+    <script>
+        const channelListUl = document.querySelector('#channelList ul');//ul要素を取得
+        const createChannelButton = document.getElementById('createChannelButton');
+        const deleteChannelButton = document.getElementById('deleteChannelButton');
+
+        //チャンネルデータをlocalstorageからロードまたは初期化
+        let channelsInChat = JSON.parse(localStorage.getItem('channelsInChat')) || [
+            { id: 'userA', name: 'バックエンド'},
+            { id: 'userB', name: 'フロントエンド'},
+            { id: 'userC', name: 'インフラ'},
+            { id: 'userD', name: 'タウンスクエア'},
+            { id: 'userE', name: 'オフトピック'}
+        ];
+
+        let currentChannelIdCounter = channelsInChat.length > 0 ? 
+                                    Math.max(...channelsInChat.map(c => {
+                                        const numPart = c.id.replace('user', '');
+                                        return parseInt(numPart) || 0;
+                                    })) : 0;
+
+        //チャンネルリストをDOMにレンダリングする関数
+        function renderChannels() {
+            channelListUl.innerHTML = ''; //リストをクリア
+            channelsInChat.forEach(channel => {
+                const newItem = document.createElement('li');
+                newItem.dataset.channelId = channel.id;
+                newItem.innerHTML = `<a href="messages.html?channel=${channel.id}&channel_name=${encodeURIComponent(channel.name)}">${channel.name}</a>`;
+                channelListUl.appendChild(newItem);
+            });
+            //localStrageに保存
+            localStorage.setItem('channelsInChat', JSON.stringify(channelsInChat));
+            
+
+        }
+
+        //初期レンダリング
+        renderChannels();
+
+        //チャンネルリスト内の各<li>にクリックリスナーを追加して、アクティブ状態を管理
+        channelListUl.addEventListener('click', function(event) {
+            const clickedLink = event.target.closest('li a');
+            if (clickedLink) {
+                //アクティブクラスの切り替え
+                const allListItems = channelListUl.querySelectorAll('li');
+                allListItems.forEach(item => item.classList.remove('active'));
+                clickedLink.parentElement.classList.add('active');
+            }
+        });
+
+        //Create Channelボタンのイベントリスナー
+        createChannelButton.addEventListener('click', function() {
+            const channelName = prompt("新しいチャンネル名を入力してください：");
+            if (channelName) {
+                currentChannelIdCounter++;
+                const newChannelId = `user${currentChannelIdCounter}`;
+
+                const newChannel = { id: newChannelId, name: channelName };
+                channelsInChat.push(newChannel);
+                renderChannels(); //チャンネルリストを再描画
+                // 新しく追加されたチャンネルを自動でアクティブにする場合
+                const newAddedItem = channelListUl.querySelector(`[data-channel-id="${newChannelId}"]`);
+                if (newAddedItem) {
+                    const allListItems = channelListUl.querySelectorAll('li');
+                    allListItems.forEach(item => item.classList.remove('active'));
+                    newAddedItem.classList.add('active');
+                }
+            }
+        });
+
+        //Delete Channelボタンのイベントリスナー
+        deleteChannelButton.addEventListener('click', function() {
+            const activeChannel = channelListUl.querySelector('li.active');
+            if (activeChannel) {
+                const channelIdToDelete = activeChannel.dataset.channelId;
+                const channelName = activeChannel.querySelector('a').textContent;
+                const confirmed = confirm(`「${channelName}」チャンネルを削除しますか？`);
+                if (confirmed) {
+                    channelsInChat = channelsInChat.filter(channel => channel.id !== channelIdToDelete);
+                    renderChannels(); //リストを再描画
+                    alert('チャンネルが削除されました。');
+                }
+            } else {
+                alert('削除するチャンネルを選択してください。');
+            }
+        });
+    </script>
+</body>
+</html>
