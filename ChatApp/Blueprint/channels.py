@@ -1,5 +1,5 @@
 from flask import Blueprint, session, redirect, url_for, render_template, request, flash
-from ChatApp.models import Channel
+from ChatApp.models import Channel, Team
 
 channels_bp = Blueprint('channels', __name__, url_prefix='/channels')
 
@@ -13,11 +13,12 @@ def channels_view(team_id):
         return redirect(url_for('auth.login_page'))
     else:
         channels = list(Channel.get_team_channels(team_id))
+        teamname = Team.get_teamname(team_id)['teamname']
         channels.reverse()
-        return render_template('channels.html', channels=channels, team_id=team_id)
+        return render_template('channels.html', channels=channels, team_id=team_id, teamname=teamname)
     
 # チャンネル作成
-@channels_bp.route('/<int:team_id>/create', methods=['POST'])
+@channels_bp.route('/<int:team_id>', methods=['POST'])
 def create_channel_page(team_id):
     uid = session.get('user_id')
     if uid is None:

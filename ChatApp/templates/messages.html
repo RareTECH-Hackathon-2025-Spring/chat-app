@@ -3,32 +3,48 @@
 {% block title %}
 <title>メッセージ画面</title>
 {% endblock %}
-
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/messages.css') }}">
+{% endblock %}
 {% block content %}
-<div class="message-display-area">
-    {% if messages|length > 0 %}
-    {% for message in messages %}
-    {% if message.uid == uid %}
-    <div class="my-message-bubble">
-        <p>{{ message.message }}</p>
-    </div>
-    {% else %}
-    <div class="other-user-message-bubble">
-        <p class="user-name">{{ message.user_name }}</p>
-        <p>{{ message.message }}</p>
-    </div>
-    {% endif %}
-    {% endfor %}
-    {% else %}
-    <p class="no-message-yet">まだメッセージがありません</p>
-    {% endif %}
-</div>
+<div class="wrapper-centered">
+    <a href="{{ url_for('channels.channels_view', team_id=team_id) }}" class="back-button">← チャンネル一覧へ</a>
+    <div class="content-stack">
+      <div class="invitation">
+        <div class="chat-header">
+          <h2 class="channel-name">{{ channel.channel_name }}</h2>
+          <p class="channel-description">{{ channel.channel_description }}</p>
+        </div>
 
-<div class="message-input-area">
-    <form class="message-form" method="POST" name="newMessageForm">
-        <textarea name="message" class="message-textarea" placeholder="メッセージを入力..." autofocus></textarea>
-        <input type="hidden" name="cid" value="{{ channel.id }}" />
-        <button type="submit" class="send-message-button">送信</button>
-    </form>
+        <div class="chat-wrapper">
+            <div class="message-display-area">
+                {% if messages|length > 0 %}
+                {% for message in messages %}
+                {% if message.uid == uid %}
+                <div class="my-message-bubble">
+                    <p>{{ message.message }}</p>
+                </div>
+                {% else %}
+                <div class="other-user-message-bubble">
+                    <p class="user-name">{{ message.user_name }}</p>
+                    <p>{{ message.message }}</p>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <p class="no-message-yet">まだメッセージがありません</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="message-input-area">
+            <form class="message-form" method="POST" name="newMessageForm">
+                <textarea name="message" class="message-textarea" placeholder="メッセージを入力..." autofocus></textarea>
+                <input type="hidden" name="cid" value="{{ channel.id }}" />
+                <button type="submit" class="send-message-button">送信</button>
+            </form>
+        </div>
+
+    </div>
 </div>
 {% endblock %}

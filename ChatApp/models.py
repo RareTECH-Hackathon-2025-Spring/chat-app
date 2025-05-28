@@ -58,6 +58,19 @@ class Team:
         except pymysql.MySQLError as e:
             print(f'Error creating user: {e}')
             abort(500)
+            
+    @classmethod
+    def get_teamname(cls, team_id):
+        try:
+            with db_pool.get_conn() as conn:
+                with conn.cursor(DictCursor) as cur:
+                    sql = "SELECT teamname FROM teams WHERE id=%s;"
+                    cur.execute(sql,(team_id,))
+                    teamname = cur.fetchone()
+                    return teamname
+        except pymysql.MySQLError as e:
+            print(f'Error creating user: {e}')
+            abort(500)
 
 class Channel:
 

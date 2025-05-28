@@ -10,30 +10,40 @@
 <div id="wrapper">
     <div class="invitation">
         <header id="header">
-            <h1>Channels List</h1>
+            <h1>Team {{ teamname }}</h1>
         </header>
         <main class="main">
-            <form id="inviteform" method="post" action="{{ url_for('channels.create_channel_page', team_id=team_id) }}">
-                <input type="text" id="channelName" name="channel_name" placeholder="Channel name" required>
-                <input type="text" id="channelDescription" name="channel_description" placeholder="Channel description" required>
-                <button type="submit">Submit</button>
-            </form>
-
             <ul id="invitedList">
                 {% if channels %}
                 {% for channel in channels %}
-                <li>
-                    <a href="{{ url_for('messages.detail', team_id=team_id, cid=channel.id) }}">
-                        {{ channel.channel_name }}
-                        {{ channel.description }}
-                    </a>
-                </li>
+                <a href="{{ url_for('messages.detail', team_id=team_id, cid=channel.id) }}" class="channel-link">
+                    <li>
+                        <div class="channel-name">{{ channel.channel_name }}</div>
+                        <div class="channel-description">{{ channel.channel_description }}</div>
+                    </li>
+                </a>
                 {% endfor %}
                 {% endif %}
             </ul>
             {% if not channels %}
             <p>このチームにはまだチャンネルがありません</p>
             {% endif %}
+        </main>
+        
+    </div>
+
+    
+    <div class="invitation-create-channel">
+        <header id="header">
+            <h1>Create Channel</h1>
+        </header>
+        <main class="main">
+            <form id="inviteform" method="post" action="{{ url_for('channels.create_channel_page', team_id=team_id) }}">
+                <input type="text" id="channelName" name="channel_name" placeholder="Channel name" required>
+                <input type="text" id="channelDescription" name="channel_description" placeholder="Channel description"
+                    required>
+                <button type="submit">Create Channel</button>
+            </form>
         </main>
     </div>
     <form method="GET" action="{{ url_for('worktime.worktime_view', team_id=team_id) }}">
@@ -43,7 +53,7 @@
 {% endblock %}
 {% block scripts %}
 <script>
-  const teamId = {{ team_id | int }};  // ✅ ここで teamId を先に定義
+    const teamId = {{ team_id | int }};
 </script>
 <script src="{{ url_for('static', filename='js/channels.js') }}"></script>
 {% endblock %}
