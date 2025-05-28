@@ -1,99 +1,401 @@
-/* .message-display-area {
-    flex-grow: 1; 
-    padding: 20px;
-    overflow-y: auto; /* メッセージが増えたらスクロール */
-    /* background-color: #ffffff; 
-    border-radius: 8px;
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff; /* 全体の背景色 */
+    color: #ffffff;
     display: flex;
-    flex-direction: column; /* メッセージを縦に並べる */
-    /* gap: 10px; メッセージ間のスペース
-}  */
-
-/* .no-message-yet {
-    text-align: center;
-    color: #666;
-    margin-top: 50px;
-} */
-
-/* メッセージバブルの共通スタイル */
-/* .my-message-bubble,
-.other-user-message-bubble {
-    max-width: 70%;
-    padding: 10px 15px;
-    border-radius: 18px;
-    word-wrap: break-word;
-} */
-
-/* 自分のメッセージ */
-/* .my-message-bubble {
-    align-self: flex-end; /* 親要素の右端に寄せる */
-    /* background-color: #007bff; 青色の背景 */
-    /* color: white;
-} */ 
-
-/* 他のユーザーのメッセージ */
-/* .other-user-message-bubble {
-    align-self: flex-start; /* 親要素の左端に寄せる */
-    /* background-color: #e2e2e2; 灰色の背景  */
-    /* color: #333;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
-.other-user-message-bubble .user-name {
-    font-size: 0.85em;
-    color: #555;
-    margin-bottom: 5px;
+.dm-container {
+    display: flex;
+    width: 90%;
+    max-width: 1200px; /* DM画面の最大幅 */
+    height: 80vh; /* DM画面の高さ */
+    background-color: #000000; /* DM画面全体の背景色 */
+    border-radius: 10px;
+    overflow: hidden; /* 角丸に合わせて内容をクリップ */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* サイドバー（会話リスト） */
+.sidebar {
+    width: 300px; /* サイドバーの固定幅 */
+    border-right: 1px solid #333333; /* 右側の区切り線 */
+    display: flex;
+    flex-direction: column;
+    background-color: #1a1a1a; /* サイドバーの背景色 */
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #333333;
+}
+
+.sidebar-header h2 {
+    margin: 0;
+    font-size: 20px;
     font-weight: bold;
-} */
-
-/* メッセージ入力エリア */
-/* .message-input-area {
-    padding: 15px 20px;
-    border-top: 1px solid #eee;
-    background-color: #f9f9f9;
-    border-radius: 0 0 8px 8px;
-    display: flex; テキストエリアとボタンを横並びにする */
-    /* align-items: center;
-    gap: 10px;
-} */
-
-/* .message-form {
-    display: flex;
-    flex-grow: 1;
-    gap: 10px;
 }
 
-.message-textarea {
-    flex-grow: 1; 
-    padding: 10px 15px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    resize: none; 
-    min-height: 40px; 
-    max-height: 120px; 
-    overflow-y: auto;
-    font-size: 1em;
-    line-height: 1.4;
-}
-
-.message-textarea:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-}
-
-.send-message-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 20px; 
+.sidebar-header .fas {
+    font-size: 18px;
+    color: #888888;
     cursor: pointer;
-    font-size: 1em;
-    font-weight: bold;
+}
+
+.search-box {
+    padding: 15px;
+    border-bottom: 1px solid #333333;
+}
+
+.search-box input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    background-color: #333333;
+    color: #ffffff;
+    font-size: 14px;
+    outline: none;
+}
+
+.conversation-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto; /* 会話リストが多すぎたらスクロール */
+    flex-grow: 1; /* 残りのスペースを埋める */
+}
+
+.conversation-item {
+    /* padding: 15px; */
+    border-bottom: 1px solid #282828; /* アイテム間の区切り線 */
+    cursor: pointer;
     transition: background-color 0.2s ease;
 }
 
-.send-message-button:hover {
-    background-color: #0056b3;
-} */
+.conversation-item a {
+    display: flex;
+    padding: 15px;
+    flex-grow: 1;
+    text-decoration: none;
+    color: inherit;
+    align-items: center;
+}
 
+.conversation-item:hover {
+    background-color: #222222; /* ホバー時の背景色 */
+}
+
+.conversation-item.active {
+    background-color: #333333; /* 選択中の会話の背景色 */
+}
+
+.conversation-item .avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #555555; /* 仮のアバター色 */
+    margin-right: 15px;
+    flex-shrink: 0; /* 縮小させない */
+}
+
+.conversation-info {
+    flex-grow: 1;
+    overflow: hidden; /* テキストのあふれを防ぐ */
+}
+
+.conversation-info .name-time {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.conversation-info .name {
+    font-weight: bold;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.conversation-info .time {
+    font-size: 12px;
+    color: #888888;
+    flex-shrink: 0; /* 縮小させない */
+    margin-left: 10px;
+}
+
+.conversation-info .last-message {
+    margin: 0;
+    font-size: 14px;
+    color: #b0b0b0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebar .button-container {
+    padding: 10px 16px;
+    border-top: 1px solid #333333;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.sidebar .button-container button {
+    background-color: #1DA1F2;
+    color: #ffffff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+}
+
+.sidebar .button-container button:hover {
+    background-color: #1A8CD8;
+}
+
+.create-user-button, .delete-user-button {
+    display: block; /* ボタンをブロックレベル要素にする */
+    width: 100%; /* 親要素の幅いっぱいに広げる */
+    padding: 12px 25px;
+    border: none;
+    border-radius: 20px;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    margin-bottom: 10px; /* ボタン間のスペース */
+}
+
+.sidebar .create-user-button {
+    background-color: #D4D4D4;
+    color: #333;
+}
+
+.sidebar .delete-user-button {
+    background-color: #D4D4D4;
+    color: #333;
+}
+
+.sidebar .create-user-button:hover {
+    background-color: #999999;
+}
+
+.sidebar .delete-user-button:hover {
+    background-color: rgb(224, 12, 12);
+    color: #ffffff;
+}
+
+/* メッセージ表示エリア */
+.message-area {
+    flex-grow: 1; /* 残りのスペースを埋める */
+    display: flex;
+    flex-direction: column;
+    background-color: #1a1a1a; /* メッセージエリアの背景色 */
+    position: relative;
+    height: 100%;
+}
+
+.message-area-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #333333;
+    flex-shrink: 0;
+}
+
+.message-area-header .user-info {
+    display: flex;
+    align-items: center;
+}
+
+.message-area-header .user-info .back-button {
+    color: #888888;
+    font-size: 20px;
+    margin-right: 15px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.message-area-header .user-info .back-button:hover {
+    color: #ffffff;
+}
+
+.message-area-header .user-info .avatar.small {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+}
+
+.message-area-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.message-area-header .actions .fas {
+    font-size: 18px;
+    color: #888888;
+    cursor: pointer;
+}
+
+.messages-display {
+    flex-grow: 1; 
+    padding: 20px;
+    overflow-y: auto; 
+    display: flex;
+    flex-direction: column; 
+    gap: 15px; 
+    justify-content: flex-end; /* 新しいメッセージが下に追加されるように */
+    padding-bottom: 80px;
+}
+
+.message {
+    display: flex;
+    margin: 20px;
+    align-items: flex-end; /* アバターとメッセージの底部を揃える */
+}
+
+.message.received {
+    justify-content: flex-start; /* 相手のメッセージは左寄せ */
+}
+
+.message.sent {
+    justify-content: flex-end; /* 自分のメッセージは右寄せ */
+}
+
+.message .avatar.small {
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+
+.message.sent .avatar.small {
+    display: none; /* 自分のメッセージにはアバターを表示しない */
+}
+
+.message-content {
+    max-width: 70%; /* メッセージバブルの最大幅 */
+    padding: 10px 15px;
+    border-radius: 18px;
+    font-size: 15px;
+    line-height: 1.4;
+    position: relative; /* 吹き出しのしっぽ用 */
+}
+
+.message.received .message-content {
+    background-color: #333333; /* 相手のメッセージの色 */
+    color: #ffffff;
+    border-bottom-left-radius: 4px; /* 左下の角を少しだけ角丸にする */
+    margin-right: auto; /* 右寄せを防ぐ */
+}
+
+.message.sent .message-content {
+    background-color: #1DA1F2; /* 自分のメッセージの色 (Twitterブルー) */
+    color: #ffffff;
+    border-bottom-right-radius: 4px; /* 右下の角を少しだけ角丸にする */
+    margin-left: auto; /* 左寄せを防ぐ */
+}
+
+.message-content .timestamp {
+    display: block;
+    font-size: 11px;
+    color: #888888;
+    margin-top: 5px;
+    text-align: right;
+}
+
+.message.received .message-content .timestamp {
+    text-align: left;
+}
+
+
+/* メッセージ入力エリア */
+.message-input-area {
+    padding: 15px;
+    border-top: 1px solid #333333;
+    display: flex;
+    align-items: center;
+    background-color: #1a1a1a;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.message-input-area input {
+    flex-grow: 1;
+    padding: 12px 18px;
+    border-radius: 25px;
+    border: none;
+    background-color: #333333;
+    color: #ffffff;
+    font-size: 15px;
+    outline: none;
+    margin-right: 10px;
+}
+
+.message-input-area input::placeholder {
+    color: #999999;
+}
+
+.message-input-area .fas {
+    font-size: 18px;
+    color: #888888;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.message-input-area button {
+    background-color: #1DA1F2; /* 送信ボタンの色 (Twitterブルー) */
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+}
+
+.message-input-area button:hover {
+    background-color: #1A8CD8; /* ホバー時の色 */
+}
+
+/* スクロールバーのスタイル（任意） */
+.conversation-list::-webkit-scrollbar,
+.messages-display::-webkit-scrollbar {
+    width: 8px;
+}
+
+.conversation-list::-webkit-scrollbar-thumb,
+.messages-display::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 10px;
+}
+
+.conversation-list::-webkit-scrollbar-track,
+.messages-display::-webkit-scrollbar-track {
+    background-color: #222;
+}
