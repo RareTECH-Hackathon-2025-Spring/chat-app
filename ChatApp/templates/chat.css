@@ -1,0 +1,130 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff; 
+    color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; /* ビューポートの高さ全体を使う */
+}
+
+.container {
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px; 
+    border-bottom: 1px solid #333333;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #f0f0f0;
+    /* text-align: center; */
+    margin-bottom: 28px;
+    font-size: 28px;
+}
+
+h2 {
+    color: #cccccc;
+    /* text-align: center; */
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.channel-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    border: 1px solid #333333;
+    border-radius: 5px;
+    padding: 10px 0;
+}
+
+.channel-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.channel-list li {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #333333;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.channel-list li:last-child {
+    border-bottom: none;
+}
+
+.channel-list li:hover {
+    background-color: #3a3a3a;
+}
+
+/* アクティブなチャンネルのスタイル */
+.channel-list li.active {
+    background-color: #4a4a4a;
+    font-weight: bold;
+    color: #1DA1F2;
+}
+
+.channel-list li a {
+    color: #f0f0f0;
+    text-decoration: none;
+    display: block;
+}
+
+.channel-list li.active a {
+    color: #1DA1F2;
+}
+
+/* .channel-list li a:hover {
+    color: #b0b0b0;
+} */
+
+.button-container {
+    margin-top: 10px; 
+    display: flex;
+    justify-content: center;
+}
+
+.button-container button {
+    background-color: #1DA1F2;
+    color: #ffffff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+    margin: 0 5px;
+    min-width: 120px;
+}
+
+.button-container button:hover {
+    background-color: #1A8CD8;
+}
+
+.delete-channel-button {
+    background-color: #dc3545;
+}
+
+.delete-channel-button:hover {
+    background-color: #c82333;
+}

@@ -1,70 +1,389 @@
-{% extends 'base.html' %} {% block title %}
-<title>chatroom</title>
+<!-- {% extends '../base.html' %} {% block title %}
+<title>メッセージ画面</title>
 {% endblock %} {% block body %}
-<div class="main-container">
-    <div id="chat-header">
-      <p class="channel-title-text detail-title">PLAUDERN</p>
-      <!-- もしuidとチャンネル作成者が同じならタイトル、説明を編集可能にする -->
-      <p id="chatroom-name">{{ channel.name }}</p>
-      {% if channel.abstract is not none %}
-      <p id="chatroom-description">{{ channel.abstract }}</p>
-      {% endif %} {% if uid == channel.uid %}
-      <button id="channel-update-button">
-        <ion-icon name="brush" style="color: #ffffff"></ion-icon>
-      </button>
-      {% include 'modal/update-channel.html' %} {% endif %}
-    </div>
-    <div id="message-area">
-      {% if messages|length > 0 %} {% for message in messages %} {% if
-      message.uid == uid %}
-      <div class="my-messages">
-        <p class="box box-right">{{ message.message }}</p>
-        <form
-          action="/channels/{{ channel.id }}/messages/{{ message.id }}"
-          method="POST"
-        >
-          <button
-            class="delete-message-button"
-            name="message_id"
-            value="{{ message.id }}"
-          >
-            <ion-icon
-              name="trash-bin-outline"
-              style="color: #122543"
-            ></ion-icon>
-          </button>
-        </form>
-      </div>
-      {% else %}
-      <div class="messages">
-        <p class="user-name">{{ message.user_name }}</p>
-        <p class="box box-left">{{ message.message }}</p>
-      </div>
-      {% endif %} {% endfor %} {% else %}
-      <p id="no-message">まだメッセージがありません</p>
-      {% endif %}
-    </div>
-    <div class="typing-box-wrapper">
-      <form class="typing-box" method="POST" name="newMessageForm">
-        <textarea name="message" id="message" autofocus></textarea>
-        <input type="hidden" name="cid" value="{{ channel.id }}" />
-        <button type="submit" id="add-message-button">
-          <ion-icon name="paper-plane"></ion-icon>
-        </button>
-      </form>
-    </div>
+<div class="message-display-area">
+    {% if messages|length > 0 %}
+        {% for message in messages %}
+            {% if message.uid == uid %}
+            <div class="my-message-bubble">
+                <p>{{ message.message }}</p>
+                </div>
+            {% else %}
+            <div class="other-user-message-bubble">
+                <p class="user-name">{{ message.user_name }}</p>
+                <p>{{ message.message }}</p>
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+    <p class="no-message-yet">まだメッセージがありません</p>
+    {% endif %}
 </div>
-{% endblock %} {% block script %}
-<script type="text/javascript">
-  // prettier-ignore
-  const uid = JSON.parse('{{ uid|tojson }}');
-</script>
-<script
-  src="{{url_for('static',filename='js/scroll-message.js')}}"
-  type="text/javascript"
-></script>
-<script
-  src="{{url_for('static',filename='js/channels/update-channel.js')}}"
-  type="text/javascript"
-></script>
+
+<div class="message-input-area">
+    <form class="message-form" method="POST" name="newMessageForm">
+        <textarea name="message" class="message-textarea" placeholder="メッセージを入力..." autofocus></textarea>
+        <input type="hidden" name="cid" value="{{ channel.id }}" />
+        <button type="submit" class="send-message-button">送信</button>
+    </form>
+</div>
 {% endblock %}
+
+ -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メッセージ機能</title>
+    <link rel="stylesheet" href="messages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="dm-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2 id="sidebarChannelName">Messages</h2>
+                <!-- <i class="fas fa-cog"></i> -->
+            </div>
+            <ul class="conversation-list", id="conversationList">
+                <!-- <li class="conversation-item" data-channel-id="userA">
+                    <a href="#" class="channel-link"> 
+                        <div class="avatar"></div>
+                        <div class="conversation-info">
+                            <div class="name-time">
+                                <span class="name">ユーザーA</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="conversation-item" data-channel-id="userB">
+                    <a href="#" class="channel-link">
+                        <div class="avatar"></div>
+                        <div class="conversation-info">
+                            <div class="name-time">
+                                <span class="name">ユーザーB</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="conversation-item" data-channel-id="userC">
+                    <a href="#" class="channel-link">
+                        <div class="avatar"></div>
+                        <div class="conversation-info">
+                            <div class="name-time">
+                                <span class="name">ユーザーC</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="conversation-item" data-channel-id="userD">
+                    <a href="#" class="channel-link">
+                        <div class="avatar"></div>
+                        <div class="conversation-info">
+                            <div class="name-time">
+                                <span class="name">ユーザーD</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="conversation-item" data-channel-id="userE">
+                    <a href="#" class="channel-link">
+                        <div class="avatar"></div>
+                        <div class="conversation-info">
+                            <div class="name-time">
+                                <span class="name">ユーザーE</span>
+                            </div>
+                        </div>
+                    </a>
+                </li> -->
+            </ul>
+            <div class="button-container">
+                <button class="create-user-button" id="createUserButton">Create Users</button>
+            </div>
+            <div class="button-container">
+                <button class="delete-user-button" id="deleteUserButton">Delete Users</button>
+            </div>
+        </div>
+
+        <div class="message-area">
+            <div class="message-area-header">
+                <div class="user-info">
+                    <a href="chat.html" class="back-button">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    <div class="avatar-small"></div>
+                    <h3 id="currentChatUserName">選択してください</h3>
+                </div>
+                <div class="actions">
+                    <i class="fas fa-ellipsis-h"></i>
+                </div>
+            </div>
+            <div class="message-display" id="messagesDisplay">
+                <p class="initial-message">サイドバーからチャンネルを選択してください</p>
+            </div>
+            <div class="message-input-area">
+                <input type="text" id="messageInput" placeholder="メッセージを送信...">
+                <!-- <i class="fas fa-image"></i> 
+                <i class="fas fa-smile"></i>  -->
+                <button id="sendMessageButton"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //チャンネルごとのデータ構造
+        //実際にはサーバーから取得する
+        const channelsData = {
+            'userA': {
+                name: 'ユーザーA',
+                messages: [ ]
+            },
+            'userB': {
+                name: 'ユーザーB',
+                messages: [ ]
+            },
+            'userC': {
+                name: 'ユーザーC',
+                messages: [ ]
+            },
+            'userD': {
+                name: 'ユーザーD',
+                messages: [ ]
+            },
+            'userE': {
+                name: 'ユーザーE',
+                messages: [ ]
+            }
+        };
+
+        const conversationList = document.getElementById('conversationList');
+        const currentChatUserName = document.getElementById('currentChatUserName');
+        const messagesDisplay = document.getElementById('messagesDisplay');
+        const messageInput = document.getElementById('messageInput');
+        const sendMessageButton = document.getElementById('sendMessageButton');
+        const sidebarChannelName = document.getElementById('sidebarChannelName');
+        const createUserButton = document.getElementById('createUserButton');
+        const deleteUserButton = document.getElementById('deleteUserButton');
+
+        let currentChannelId = null; //現在選択されているチャンネルID
+        let userCounter = Object.keys(channelsData).length; //既存のユーザー数から開始
+
+        //localStorageからchannelsInChatのデータを読み込み、channelsDataにマージする
+        const storedChannelsInChat = JSON.parse(localStorage.getItem('channelsInChat')) || [];
+        storedChannelsInChat.forEach(c => {
+            // message.htmlのchannelsDataに存在しないチャンネルを追加
+            if (!channelsData[c.id]) {
+                channelsData[c.id] = { name: c.name, messages: [] };
+            }
+        });
+
+        // サイドバーのチャンネルリストをレンダリングする関数
+        function renderSidebarChannels() {
+            conversationList.innerHTML = ''; // リストをクリア
+            Object.keys(channelsData).forEach(channelId => {
+                const channel = channelsData[channelId];
+                const newItem = document.createElement('li');
+                newItem.classList.add('conversation-item');
+                newItem.dataset.channelId = channelId;
+                newItem.innerHTML = `
+                    <a href="#" class="channel-link"> 
+                        <div class="avatar"></div>
+                        <div class="conversation-info">
+                            <div class="name-time">
+                                <span class="name">${channel.name}</span>
+                            </div>
+                        </div>
+                    </a>
+                `;
+                conversationList.appendChild(newItem);
+            });
+        }
+        renderSidebarChannels(); // 初期レンダリング
+
+        //チャンネル名がセットされたかどうかを追跡するフラグ
+        let channelNameSetFromUrl = false;
+
+        //ページロード時に初期選択ロジック
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialChannelFromUrl = urlParams.get('channel');
+        const initialChannelNameFromUrl = urlParams.get('channel_name');
+
+        if (initialChannelNameFromUrl) {
+            sidebarChannelName.textContent = initialChannelNameFromUrl;
+            channelNameSetFromUrl = true;
+        } else {
+            //URLにチャンネル名がない場合は、デフォルトの"Messages"を表示
+            sidebarChannelName.textContent = "Messages";
+        }
+            //URLからチャンネル名が渡された場合、それをサイドバーヘッダーに設定
+        if (initialChannelFromUrl && channelsData[initialChannelFromUrl]) {
+            selectChannel(initialChannelFromUrl);
+        } else {
+            const firstChannelId = Object.keys(channelsData)[0];
+            if (firstChannelId) {
+                selectChannel(firstChannelId);
+                //URLにチャンネル名がなく、最初のチャンネルが自動選択された場合、そのチャンネル名をサイドバーヘッダーに設定
+                if (!channelNameSetFromUrl) {
+                    sidebarChannelName.textContent = channelsData[firstChannelId].name;
+                }
+            }
+        }
+
+        //サイドバーのチャンネルアイテムにクリックイベントリスナーを設定
+        conversationList.addEventListener('click', function(event) {
+            const clickedItem = event.target.closest('.conversation-item');
+            if (clickedItem) {
+                event.preventDefault();
+                const channelId = clickedItem.dataset.channelId;
+                selectChannel(channelId);
+            }
+        });
+
+        // Create Userボタンのイベントリスナー
+        createUserButton.addEventListener('click', function() {
+            userCounter++;
+            const newChannelId = `user${String.fromCharCode(64 + userCounter)}`;
+            const newUserName = `新規ユーザー${userCounter}`;
+
+            //データに追加
+            channelsData[newChannelId] = {
+                name: newUserName,
+                messages: []
+            };
+
+            renderSidebarChannels(); //サイドバーのリストを再描画
+            selectChannel(newChannelId); //新しく作成されたユーザーを選択
+        });
+
+        //Delete User ボタンのイベントリスナー
+        deleteUserButton.addEventListener('click', function() {
+            //現在選択されているユーザーがあれば削除
+            if (currentChannelId && Object.keys(channelsData).length > 1) {
+                const confirmed = confirm(`${channelsData[currentChannelId].name}を削除しますか？`);
+                if (!confirmed) return;
+                //データから削除
+                delete channelsData[currentChannelId];
+                
+                renderSidebarChannels(); //サイドバーのリストを再描画
+
+                //削除後、別のユーザーを選択するか、初期状態に戻す
+                const remainingChannelIds = Object.keys(channelsData);
+                if (remainingChannelIds.length > 0) {
+                    selectChannel(remainingChannelIds[0]); //最初のユーザーを選択
+                } else {
+                    //全員削除された場合
+                    currentChatUserName.textContent = '選択してください';
+                    messagesDisplay.innerHTML = '<p class="initial-message">サイドバーからチャンネルを選択してください</p>';
+                    sidebarChannelName.textContent = "Messages";
+                    messageInput.disabled = true;
+                    sendMessageButton.disabled = true;
+                    currentChannelId = null;
+                }
+            } else if (Object.keys(channelsData).length === 1) {
+                alert('最後のユーザーは削除できません。');
+            } else {
+                alert('削除するユーザーがいません。');
+            }
+        });
+
+        // メッセージ送信機能
+        sendMessageButton.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key == 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function selectChannel(channelId) {
+            currentChannelId = channelId;
+            const channel = channelsData[channelId];
+
+            if (!channel) {
+                console.error('Channel not found:', channelId);
+                currentChatUserName.textContent = 'チャンネルが見つかりません';
+                messagesDisplay.innerHTML = '<p class="initial-message">選択されたチャンネルが見つかりませんでした。</p>';
+                messageInput.disabled = true;
+                sendMessageButton.disabled = true;
+                sidebarChannelName.textContent = "Messages";// チャンネルが見つからない場合のリセット
+                return;
+            }
+
+            messageInput.disabled = false;
+            sendMessageButton.disabled = false;
+
+            //ヘッダーのユーザー名を更新
+            currentChatUserName.textContent = channel.name;
+
+            //メッセージ表示エリアをクリア
+            messagesDisplay.innerHTML = '';
+
+            //チャンネルのメッセージ履歴を表示
+            channel.messages.forEach(msg => {
+                appendMessage(msg.content, msg.sender, msg.time);
+            });
+
+            //サイドバーのアクティブ状態を更新
+            const allItems = conversationList.querySelectorAll('.conversation-item');
+            allItems.forEach(item => item.classList.remove('active'));
+
+            const selectedItem = conversationList.querySelector(`[data-channel-id="${channelId}"]`);
+            if (selectedItem) {
+                selectedItem.classList.add('active');
+            }
+
+            //メッセージエリアを一番下までスクロール
+            messagesDisplay.scrollTop = messagesDisplay.scrollHeight;
+
+        }
+
+        function appendMessage(content, sender, time) {
+            const newMessageDiv = document.createElement('div');
+            newMessageDiv.classList.add('message', sender);
+
+            const avatarHTML = (sender === 'received') ? '<div class="avatar-small"></div>' : '';
+
+            newMessageDiv.innerHTML = `
+                ${avatarHTML}
+                <div class="message-content">
+                    <p>${content}</p>
+                    <span class="timestamp">${time}</span>
+                </div>
+            `;
+            messagesDisplay.appendChild(newMessageDiv);
+        }
+
+        function sendMessage() {
+            if (!currentChannelId) {
+                alert('チャンネルを選択してください。');
+                return;
+            }
+
+            const messageText = messageInput.value.trim();
+
+            if (messageText) { //メッセージが空でない場合のみ処理
+                const now = new Date();
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const timestamp = `${hours}:${minutes}`;
+
+                //UIにメッセージ追加
+                appendMessage(messageText, 'sent', timestamp);
+
+                //データにもメッセージを追加（ページリロードで消えてしまう）
+                channelsData[currentChannelId].messages.push({
+                    sender: 'sent',
+                    content: messageText,
+                    time: timestamp
+                });
+
+                messagesDisplay.scrollTop = messagesDisplay.scrollHeight;
+                messageInput.value = '';
+            }
+        }
+    </script>
+</body>
+</html>

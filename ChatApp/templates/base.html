@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}ChatApp{% endblock %}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/work_time_log.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/channels.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/messages.css') }}">
+    </head>
+    
+    <body>
+        {% block content %}{% endblock %}
+        <script src="{{ url_for('static', filename='js/channels.js') }}"></script>
+        {% block scripts %}{% endblock %}
+    </body>
+</html>
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
