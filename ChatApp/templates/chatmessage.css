@@ -142,7 +142,7 @@ background 背景の「色、画像、位置、繰り返しなど」をまとめ
 }
 
 .clear-chat-button {
-    display: block
-    ;
+    display: block;
     margin: 2.5em auto;
+    background-color: #ff7f7f;
 }
