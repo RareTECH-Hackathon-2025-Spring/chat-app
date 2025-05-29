@@ -1,8 +1,5 @@
 // static/js/channels.js
-<<<<<<< HEAD
-=======
 // 1. DOM 要素の取得
->>>>>>> 019d0d6212a8e47b742d33f85094e8889a820abc
 const form  = document.querySelector('#inviteform');
 const input = document.querySelector('#channelName');
 const ul    = document.querySelector('#invitedList');
@@ -13,7 +10,6 @@ const ul    = document.querySelector('#invitedList');
  * @param {number} channelId   チャンネルID（Date.now() で仮生成）
  * @param {string} channelName チャンネル名
  */
-<<<<<<< HEAD
 function createLi(teamId, channelId, channelName) {
   const li = document.createElement('li');
 
@@ -38,7 +34,6 @@ function createLi(teamId, channelId, channelName) {
 form.addEventListener('submit', event => {
   event.preventDefault();
   const name = input.value.trim();
-=======
 
 // 2. 保存済みチャンネルの復元
 let channels = JSON.parse(localStorage.getItem('channels') || '[]');
@@ -75,14 +70,12 @@ function createLi(teamId, channelId, channelName) {
 form.addEventListener('submit', event => {
   event.preventDefault(); // ページ再読み込みを防ぐ
   const name = input.value.trim(); // 前後スペースを除去
->>>>>>> 019d0d6212a8e47b742d33f85094e8889a820abc
   if (!name) {
     alert('Enter the name please!');
     return;
   }
 
-  // 仮のID生成（本番はサーバーから返ってくるIDを使う）
-<<<<<<< HEAD
+  // 仮のID生成（本番はサーバーから返ってくるを使う）
   const fakeChannelId = Date.now();
   const li = createLi(1, fakeChannelId, name);
 
@@ -114,7 +107,6 @@ ul.addEventListener('click', event => {
     aNew.href = inp.previousElementSibling.href;
     li.replaceChild(aNew, inp);
     btn.textContent = 'edit';
-=======
   const newId = Date.now();
   const teamId = 1;  // 今は固定、将来はサーバーから
 
@@ -175,6 +167,5 @@ ul.addEventListener('click', event => {
       ch.name = newName;
       localStorage.setItem('channels', JSON.stringify(channels));
     }
->>>>>>> 019d0d6212a8e47b742d33f85094e8889a820abc
   }
 });
