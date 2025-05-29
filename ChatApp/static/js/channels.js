@@ -1,84 +1,74 @@
-const form = document.querySelector('#inviteform')
-const input = document.querySelector('input')
-const ul = document.querySelector('#invitedList')
+// static/js/channels.js
+const form  = document.querySelector('#inviteform');
+const input = document.querySelector('#channelName');
+const ul    = document.querySelector('#invitedList');
 
+/**
+ * 新しい <li> を作って返す
+ * @param {number} teamId      チームID（固定でもOK）
+ * @param {number} channelId   チャンネルID（Date.now() で仮生成）
+ * @param {string} channelName チャンネル名
+ */
+function createLi(teamId, channelId, channelName) {
+  const li = document.createElement('li');
 
-function createLi() {
-    const li = document.createElement('li');
-    const span = document.createElement('span');
-    span.textContent = input.value;
-    const label = document.createElement('label');
-    // label.textContent = 'confirmed';
-    const checkbox = document.createElement('input');
-    // checkbox.type = "checkbox";
-    const editBtn = document.createElement('button');
-    editBtn.textContent = 'edit';
-    const removeBtn  = document.createElement('button')
-    removeBtn.textContent = 'remove';
+  // ——— チャンネルリンク ———
+  const a = document.createElement('a');
+  a.textContent = channelName;
+  a.href        = `/channels/${teamId}/messages/${channelId}`;
+  a.classList.add('channel-link');
 
+  // ——— 編集／削除ボタン ———
+  const editBtn   = document.createElement('button');
+  editBtn.textContent   = 'edit';
+  const removeBtn = document.createElement('button');
+  removeBtn.textContent = 'remove';
 
-    li.appendChild(span);
-    li.appendChild(label);
-    // label.appendChild(checkbox);
-    li.appendChild(editBtn);
-    li.appendChild(removeBtn);
-
-    return li;
+  // <li> にまとめて追加
+  li.append(a, editBtn, removeBtn);
+  return li;
 }
 
-form.addEventListener('submit', (event) => {
-    event.preventDefault();
+// ——— フォーム送信時 ———
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  const name = input.value.trim();
+  if (!name) {
+    alert('Enter the name please!');
+    return;
+  }
 
-    const li = createLi();
+  // 仮のID生成（本番はサーバーから返ってくるIDを使う）
+  const fakeChannelId = Date.now();
+  const li = createLi(1, fakeChannelId, name);
 
-    if(input.value === '') {
-        alert('Enter the name please!')
-    } else {
-        ul.appendChild(li);
-    }
+  ul.appendChild(li);
+  input.value = '';
 });
 
-// 2 Add resopnded class
-
-ul.addEventListener('change', (event) => {
-    const checkbox = event.target;
-    const checked = checkbox.checked;
-    const li = checkbox.parentNode.parentNode;
-        if(checked) {
-            li.className = 'responded';
-        }   else {
-            li.className = '';
-        }
-});
-
-// 3 button aciton
-
+// ——— edit/remove ボタンのハンドリング ———
 ul.addEventListener('click', event => {
   if (event.target.tagName !== 'BUTTON') return;
+  
+  const btn = event.target;
+  const li  = btn.closest('li');
 
-  const button = event.target;
-  const li     = button.closest('li');
-
-  if (button.textContent === 'remove') {
-
-    // 削除
+  if (btn.textContent === 'remove') {
     li.remove();
-  } else if (button.textContent === 'edit') {
-
-    // 編集開始
-    const span = li.querySelector('span');
-    const inputTxt = document.createElement('input');
-    inputTxt.type = 'text'
-    inputTxt.value = span.textContent;
-    li.replaceChild(inputTxt, span);
-    button.textContent = 'save';
-   } else if(button.textContent === 'save') {
-
-    // 編集保存
-    const inputTxt = li.querySelector('input[type="text"]');
-    const spanNew = document.createElement('span');
-    spanNew.textContent = inputTxt.value;
-    li.replaceChild(spanNew, inputTxt);
-    button.textContent = 'edit';
-    }
- });
+  } else if (btn.textContent === 'edit') {
+    const a   = li.querySelector('a');
+    const inp = document.createElement('input');
+    inp.type  = 'text';
+    inp.value = a.textContent;
+    li.replaceChild(inp, a);
+    btn.textContent = 'save';
+  } else { // save
+    const inp  = li.querySelector('input[type="text"]');
+    const aNew = document.createElement('a');
+    aNew.textContent = inp.value;
+    // href を再設定（必要なら）
+    aNew.href = inp.previousElementSibling.href;
+    li.replaceChild(aNew, inp);
+    btn.textContent = 'edit';
+  }
+});
