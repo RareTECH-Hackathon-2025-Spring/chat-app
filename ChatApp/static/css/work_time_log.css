@@ -24,8 +24,14 @@ main {
     max-width: 416px;
     margin: auto;
 }
+h1 {
+    text-align: center;
+    font-size: 24px;
+
+}
 h2 {
-    margin: 0 0 40px;
+    text-align: center;
+    margin: 0 0 32px;
     font-size: 24px;
 }
 
