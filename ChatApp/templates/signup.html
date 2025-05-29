@@ -1,6 +1,6 @@
 {% extends 'base.html'%}
 {% block title %}
-<title>Sign Up</title>
+<title>サインアップ</title>
 {% endblock %}
 
 {% block stylesheets %}
@@ -12,35 +12,35 @@
         <section class="content">
             <main>
                 <div class="auth-content">
-                    <h2>Sign Up for an Account</h2>
+                    <h2>アカウントを作成する</h2>
                     <div class="auth-form sign-up-form">
                         <form method="post">
                             <div class="form-fields">
                                 <fieldset>
-                                    <label for="username">Username</label>
-                                    <input type="text" name="username" id="signup" class="text-input" placeholder="Username">
+                                    <label for="username">ユーザー名</label>
+                                    <input type="text" name="username" id="signup" class="text-input" placeholder="ユーザー名">
                                 </fieldset>
                                 <fieldset>
-                                    <label for="password">Password(6–32 characters)</label>
-                                    <input type="password" name="password" id="password1" class="text-input" placeholder="Password">
+                                    <label for="password">パスワード(6~32文字)</label>
+                                    <input type="password" name="password" id="password1" class="text-input" placeholder="パスワード">
                                 </fieldset>
                                 <fieldset>
-                                    <label for="password">Confirm Password</label>
-                                    <input type="password" name="passwordConfirmation" id="password2"  class="text-input" placeholder="Password">
+                                    <label for="password">パスワード(確認)</label>
+                                    <input type="password" name="passwordConfirmation" id="password2"  class="text-input" placeholder="パスワード(確認)">
                                 </fieldset>
                                 <fieldset>
-                                    <label for="team-select">Team Selection</label>
+                                    <label for="team-select">チームを選択</label>
                                     <select id="team-select" name="team_id">
-                                    <option value="">Team Selection</option>
+                                    <option value="">チーム名</option>
                                     {% for team in teams %}
                                         <option value="{{ team.id }}">{{ team.teamname }}</option>
                                     {% endfor %}
                                     </select>
                                 </fieldset>
                             </div>
-                            <button class="btn" type="submit">Create Account</button> 
-                            <p class="signup">Already have an account?
-                                <a class="info" href="{{ url_for('auth.login_page') }}">Log in</a>
+                            <button class="btn" type="submit">アカウントを作成する</button> 
+                            <p class="signup">すでにアカウントをお持ちの方はこちら
+                                <a class="info" href="{{ url_for('auth.login_page') }}">ログイン</a>
                             </p>
                         </form>
                     </div>

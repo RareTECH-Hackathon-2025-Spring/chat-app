@@ -63,6 +63,7 @@ CREATE TABLE worktimes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     team_id INT NOT NULL,
+    work_date DATE NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

@@ -68,4 +68,4 @@ def login_process():
     session['user_id'] = user['id']
     team_id = user['team_id']
     print(f"ログイン完了")
-    return redirect(url_for('channels.channels_view', team_id=team_id))
+    return redirect(url_for('dashboard.dashboard_view', team_id=team_id))

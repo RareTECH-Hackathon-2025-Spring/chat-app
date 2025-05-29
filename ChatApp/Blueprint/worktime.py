@@ -13,17 +13,18 @@ def worktime_input(team_id):
         return redirect(url_for('auth.login_page'))
 
     uid = request.form.get('user_id')    
+    work_date = request.form.get("work_date")
     start_time = request.form.get('start_time')
     end_time = request.form.get('end_time')
 
     worktime = Worktime.get_by_user_id(uid)
 
     if worktime is None:
-        Worktime.create(uid, team_id, start_time, end_time)
+        Worktime.create(uid, team_id, work_date, start_time, end_time)
     else:
-        Worktime.update(uid, start_time, end_time)
+        Worktime.update(uid, work_date, start_time, end_time)
 
-    return redirect(url_for('worktime.worktime_view', team_id=team_id))
+    return redirect(url_for('dashboard.dashboard_view', team_id=team_id))
 
 # 勤怠ページの表示
 @worktime_bp.route('/<int:team_id>', methods=['GET'])
@@ -36,7 +37,7 @@ def worktime_view(team_id):
     team_members = User.get_team_members(team_id)
     print("Rendering work_time_log.html...")
 
-    return render_template('work_time_log.html', worktimes = worktimes, team_id = team_id, team_members = team_members)
+    return redirect(url_for('dashboard.dashboard_view', team_id=team_id))
     
     
     

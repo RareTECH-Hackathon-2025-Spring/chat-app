@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block title %}
+<title>ダッシュボード</title>
+{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+{% block content %}
+
+<div id="wrapper">
+    <div class="invitation">
+        <main class="main teamname_displayed">
+            <h1>Team {{ teamname }}</h1>
+        </main>
+    </div>
+    <div class="dashboard-grid">
+        <div class="invitation channel-list">
+            <header id="header">
+                <h1>チャンネル一覧</h1>
+            </header>
+            <main class="main">
+                <ul id="invitedList">
+                    {% if channels %}
+                    {% for channel in channels %}
+                    <a href="{{ url_for('messages.detail', team_id=team_id, cid=channel.id) }}" class="channel-link">
+                        <li>
+                            <div class="channel-name">{{ channel.channel_name }}</div>
+                            <div class="channel-description">{{ channel.channel_description }}</div>
+                        </li>
+                    </a>
+                    {% endfor %}
+                    {% endif %}
+                </ul>
+                {% if not channels %}
+                <p>このチームにはまだチャンネルがありません</p>
+                {% endif %}
+            </main>
+
+        </div>
+        <div class="invitation-create channel-create">
+            <header id="header">
+                <h1>チャンネル作成</h1>
+            </header>
+            <main class="main">
+                <form id="inviteform" method="post"
+                    action="{{ url_for('channels.create_channel_page', team_id=team_id) }}">
+                    <input type="text" id="channelName" name="channel_name" placeholder="チャンネル名" required>
+                    <input type="text" id="channelDescription" name="チャンネルの説明"
+                        placeholder="Channel description" required>
+                    <button type="submit">チャンネル作成</button>
+                </form>
+            </main>
+        </div>
+
+        <div class="invitation worktime-list">
+            <header id="header">
+                <h1>稼働時間</h1>
+            </header>
+            <main class="main">
+                <div class="timelog-list">
+                    <table id="timelist" class="styled-table">
+                        <thead>
+                            <tr id="timelist-style">
+                                <th>ユーザー名</th>
+                                <th>日付</th>
+                                <th>稼働開始時間</th>
+                                <th>稼働終了時間</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for worktime in worktimes %}
+                            <tr>
+                                <td>{{ worktime.username }}</td>
+                                <td>{{ worktime.work_date }}</td>
+                                <td>{{ worktime.start_time }}</td>
+                                <td>{{ worktime.end_time }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+
+        <div class="invitation-create worktime-create">
+            <header id="header">
+                <h1>稼働時間を記録</h1>
+            </header>
+            <div class="auth-form sign-in-form">
+                <main class="main">
+                    <form id="inviteform" method="post"
+                        action="{{ url_for('worktime.worktime_input', team_id=team_id) }}">
+                        <div class="form-fields">
+                            <label for="user_id">ユーザー名</label>
+                            <select id="team-select2" name="user_id" required>
+                                <option value="" disabled selected>ユーザー選択</option>
+                                {% for team_member in team_members %}
+                                <option value="{{ team_member.id }}">{{ team_member.username }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <label for="work_date">稼働日</label>
+                            <input type="date" name="work_date" id="work_date" required>
+
+                            <label for="start_time">稼働開始時間</label>
+                            <input type="time" name="start_time" min="00:00" max="23:59" required>
+
+                            <label for="end_time">稼働終了時間</label>
+                            <input type="time" name="end_time" min="00:00" max="23:59" required>
+                        </div>
+
+                        <button class="btn2" type="submit">登録する</button>
+                    </form>
+                </main>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+    const teamId = {{ team_id | int }};
+</script>
+<script src="{{ url_for('static', filename='js/channels.js') }}"></script>
+{% endblock %}
