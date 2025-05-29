@@ -146,12 +146,12 @@ class Worktime:
 
     # 作成
     @classmethod
-    def create(cls, user_id, start_time, end_time):
+    def create(cls, user_id, team_id, start_time, end_time):
         try:
             with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
-                    sql = "INSERT INTO worktimes (user_id, start_time, end_time) VALUES (%s, %s, %s);"
-                    cur.execute(sql, (user_id, start_time, end_time,))
+                    sql = "INSERT INTO worktimes (user_id, team_id, start_time, end_time) VALUES (%s, %s, %s, %s);"
+                    cur.execute(sql, (user_id, team_id, start_time, end_time,))
                     conn.commit()
         except pymysql.MySQLError as e:
             print(f'Error creating worktime: {e}')
@@ -165,7 +165,7 @@ class Worktime:
                 with conn.cursor() as cur:
                     sql = "SELECT * FROM worktimes WHERE user_id = %s;"
                     cur.execute(sql, (user_id,))
-                    worktime = cur.fetchone()
+                    worktime = cur.fetchone() 
                     return worktime
         except pymysql.MySQLError as e:
             print(f'Error creating worktime: {e}')
@@ -178,13 +178,14 @@ class Worktime:
             with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
                     sql = """
-                    SELECT worktimes.*, users.username 
+                    SELECT worktimes.start_time, worktimes.end_time, users.username 
                     FROM worktimes
                     INNER JOIN users ON worktimes.user_id = users.id 
-                    WHERE users.team_id = %s;
+                    WHERE users.team_id = %s
+                    ORDER BY users.username, worktimes.created_at DESC; -- ユーザー名と登録日時の降順でソート
                     """
                     cur.execute(sql, (team_id,))
-                    worktimes = cur.fetchall()
+                    worktimes = cur.fetchall() 
                     return worktimes
         except pymysql.MySQLError as e:
             print(f'Error creating worktime: {e}')
@@ -193,12 +194,12 @@ class Worktime:
 
     # 更新
     @classmethod
-    def update(cls, user_id, start_time, end_time):
+    def update(cls, user_id, team_id, start_time, end_time):
         try:
             with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
-                    sql = "UPDATE worktimes SET start_time = %s, end_time = %s WHERE user_id = %s;"
-                    cur.execute(sql, (start_time, end_time, user_id,))
+                    sql = "UPDATE worktimes SET start_time = %s, end_time = %s WHERE user_id = %s AND team_id = %s;"
+                    cur.execute(sql, (start_time, end_time, user_id, team_id,))
                     conn.commit()
         except pymysql.MySQLError as e:
             print(f'Error creating worktime: {e}')
