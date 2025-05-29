@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>メッセージ画面</title>
+<title>メッセージ - {{ channel.channel_name }}</title>
 {% endblock %}
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/messages.css') }}">
 {% endblock %}
 {% block content %}
 <div class="wrapper-centered">
-    <a href="{{ url_for('channels.channels_view', team_id=team_id) }}" class="back-button">← チャンネル一覧へ</a>
+    <a href="{{ url_for('dashboard.dashboard_view', team_id=team_id) }}" class="back-button">チャンネル一覧</a>
     <div class="content-stack">
       <div class="invitation">
         <div class="chat-header">

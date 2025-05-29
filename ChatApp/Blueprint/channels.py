@@ -29,7 +29,7 @@ def create_channel_page(team_id):
     if channel == None:
         channel_description = request.form.get('channel_description')
         Channel.create(channel_name, channel_description, team_id, uid)
-        return redirect(url_for('channels.channels_view', team_id=team_id))
+        return redirect(url_for('dashboard.dashboard_view', team_id=team_id))
     else:
         error = "チャンネル名はすでに使用されています"
         return render_template('error/error.html', error_message=error)

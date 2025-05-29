@@ -159,12 +159,12 @@ class Worktime:
 
     # 作成
     @classmethod
-    def create(cls, team_id, user_id, start_time, end_time):
+    def create(cls, team_id, user_id, work_date, start_time, end_time):
         try:
             with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
-                    sql = "INSERT INTO worktimes (user_id, team_id, start_time, end_time) VALUES (%s, %s, %s, %s);"
-                    cur.execute(sql, (user_id, team_id, start_time, end_time,))
+                    sql = "INSERT INTO worktimes (user_id, team_id, work_date, start_time, end_time) VALUES (%s, %s, %s, %s, %s);"
+                    cur.execute(sql, (user_id, team_id, work_date, start_time, end_time,))
                     conn.commit()
         except pymysql.MySQLError as e:
             print(f'Error creating worktime: {e}')
@@ -193,6 +193,7 @@ class Worktime:
                     sql = """
                     SELECT
                         users.username,
+                        worktimes.work_date,
                         worktimes.start_time,
                         worktimes.end_time
                     FROM worktimes 
@@ -208,12 +209,12 @@ class Worktime:
 
     # 更新
     @classmethod
-    def update(cls, user_id, start_time, end_time):
+    def update(cls, user_id, work_date, start_time, end_time):
         try:
             with db_pool.get_conn() as conn:
                 with conn.cursor() as cur:
-                    sql = "UPDATE worktimes SET start_time = %s, end_time = %s WHERE user_id = %s;"
-                    cur.execute(sql, (start_time, end_time, user_id,))
+                    sql = "UPDATE worktimes SET work_date=%s, start_time = %s, end_time = %s WHERE user_id = %s;"
+                    cur.execute(sql, (work_date, start_time, end_time, user_id,))
                     conn.commit()
         except pymysql.MySQLError as e:
             print(f'Error creating worktime: {e}')

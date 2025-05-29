@@ -1,6 +1,6 @@
 {% extends 'base.html'%}
 {% block title %}
-<title>Log in</title>
+<title>ログイン</title>
 {% endblock %}
 
 {% block stylesheets %}
@@ -12,24 +12,24 @@
     <section class="content">
         <main>
             <div class="auth-content">
-                <h2>Log In to Your Account</h2>
+                <h2>ログイン</h2>
                 <div class="auth-form sign-in-form">
                     <form method="post">
                         <div class="form-fields">
                             <fieldset>
-                                <label for="username">Username</label>
-                                <input type="text" name="username" id="login" class="text-input" placeholder="Username">
+                                <label for="username">ユーザー名</label>
+                                <input type="text" name="username" id="login" class="text-input" placeholder="ユーザー名">
                             </fieldset>
                             <fieldset>
-                                <label for="password">Password</label>
-                                <input type="password"  name="password" id="password" class="text-input" placeholder="Password">
+                                <label for="password">パスワード</label>
+                                <input type="password"  name="password" id="password" class="text-input" placeholder="パスワード">
                             </fieldset>
                         </div>
                       
-                        <button class="btn" type="submit" name="sign_in_btn" value="sign_in">Log in</button>
-                        <p class="sign">Don't have an account?
+                        <button class="btn" type="submit" name="sign_in_btn" value="sign_in">ログイン</button>
+                        <p class="sign">アカウントをお持ちでない方はこちら
                           
-                        <a class="info" href="{{ url_for('auth.signup_page') }}">Sign up</a>
+                        <a class="info" href="{{ url_for('auth.signup_page') }}">新規登録</a>
                         </p>
                     </form>
                 </div>

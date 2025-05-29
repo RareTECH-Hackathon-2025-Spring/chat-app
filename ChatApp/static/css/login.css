@@ -1,5 +1,6 @@
 html, body {
     height: 100%;
+    font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
 }
 
 #main-container {
