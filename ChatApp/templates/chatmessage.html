@@ -1,0 +1,41 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="chatmessage.css">
+    <title>Chat</title>
+</head>
+    <body> -->
+        
+{% extends 'base.html' %}
+{% block title %}
+<title>Chat</title>
+
+{% blockstylesheets %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chatmessage.css') }}">
+{% endblock %} 
+
+{% endblock %}
+        <div class="person-selector">
+            <button class="button person-selector-button acitve-person" id=user-selector>user</button>
+            <button class="button person-selector-button" id=user2-selector>user2</button>
+        </div>
+        <div class="chat-container">
+            <h2 class="chat-header">user chatting...</h2>
+
+            <div class="chat-messages"></div>
+            
+            <form class="chat-input-form">
+                <input type="text" class="chat-input" required placeholder="type here, John..">
+                <button type="submit" class="button send-button">Send</button>
+            </form>
+            <button class="button clear-chat-button">Clear Chat</button>
+        </div>
+        <script src="chatmessage.js"></script>
+    </body>
+
+        {% block scripts %}
+        <script src="{{ url_for('static', filename='js/chatmessage.js') }}"></script>
+        {% endblock %}
+</html>
