@@ -63,10 +63,10 @@ CREATE TABLE worktimes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     team_id INT NOT NULL,
-    start_time INT NOT NULL,
-    end_time INT NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (team_id) REFERENCES teams(id)
 );
