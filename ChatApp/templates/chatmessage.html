@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +6,17 @@
     <link rel="stylesheet" href="chatmessage.css">
     <title>Chat</title>
 </head>
-    <body>
+    <body> -->
+        
+{% extends 'base.html' %}
+{% block title %}
+<title>Chat</title>
+
+{% blockstylesheets %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chatmessage.css') }}">
+{% endblock %} 
+
+{% endblock %}
         <div class="person-selector">
             <button class="button person-selector-button acitve-person" id=user-selector>user</button>
             <button class="button person-selector-button" id=user2-selector>user2</button>
@@ -24,4 +34,8 @@
         </div>
         <script src="chatmessage.js"></script>
     </body>
+
+        {% block scripts %}
+        <script src="{{ url_for('static', filename='js/chatmessage.js') }}"></script>
+        {% endblock %}
 </html>
