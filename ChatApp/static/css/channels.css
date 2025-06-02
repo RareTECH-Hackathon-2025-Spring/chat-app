@@ -72,7 +72,6 @@ input[type="text"]:focus {
     border: 1px solid #F3F3F6;
     border-radius: 10px;
     padding: 10px 100px 10px 10px;
-    margin-right: 12px;
     width: 100%;
     height: 50px;
     font-size: 16px;
@@ -127,10 +126,7 @@ display: block;
 #invitedList li input[type="text"] {
     flex: 1 1 auto;
     min-width: 0;
-<<<<<<< HEAD
-=======
     margin-right: 12px;
->>>>>>> 019d0d6212a8e47b742d33f85094e8889a820abc
     border: 1px solid #F3F3F6;
     border-radius: 10px;
     padding: 10px 10px 10px 10px;
